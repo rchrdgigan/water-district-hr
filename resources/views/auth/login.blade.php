@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container">
+    <div class="logo2">
+        <img src="{{asset('img/waterdistrict_logo.png')}}" class="mx-auto" alt="" srcset="">
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
