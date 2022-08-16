@@ -18,6 +18,7 @@
     <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
+    @stack('custom-links')
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/mystyle.css') }}" rel="stylesheet">
 </head>
@@ -84,3 +85,4 @@
     </div>
 </body>
 </html>
+@stack('custom-scripts')

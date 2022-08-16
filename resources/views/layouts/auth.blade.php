@@ -17,7 +17,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <meta name="description" content="Midone admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
         <meta name="keywords" content="admin template, Midone admin template, dashboard template, flat admin template, responsive admin template, web app">
         <meta name="author" content="LEFT4CODE">
-        <title>Login - Bulan Water Distric Payroll Management System</title>
+        <title>Login - Bulan Water Information Management System for HR</title>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="{{asset('dist/css/app.css')}}" />
         <!-- END: CSS Assets-->
@@ -30,14 +30,16 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="hidden xl:flex flex-col min-h-screen">
                     <a href="{{url('/')}}" class="-intro-x flex items-center pt-5">
                         <img alt="" class="w-12" src="{{asset('img/waterdistrict_logo.png')}}">
-                        <span class="text-white text-lg ml-3">BWDPMS
+                        <span class="text-white text-lg ml-3">IMSHR
                     </a>
                     <div class="my-auto">
                         <!-- <img alt="" class="-intro-x w-30 -mt-16" src="{{asset('img/waterdistrict_logo.png')}}"> -->
                         <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">
-                            Login here your account.
+                            Sign-In here
+                            <br>
+                            your account.
                         </div>
-                        <div class="-intro-x mt-5 text-lg text-white dark:text-gray-500">Manage all employees data</div>
+                        <div class="-intro-x mt-5 text-lg text-white dark:text-gray-500">Manage all employees data.</div>
                     </div>
                 </div>
                 <!-- END: Login Info -->
@@ -51,7 +53,7 @@ License: You must have a valid license purchased only from themeforest(the above
             </div>
         </div>
 
-        <script src="{{asset('assets/js/app.js')}}"></script>
+        <script src="{{asset('dist/js/app.js')}}"></script>
         <!-- END: JS Assets-->
     </body>
 </html>
