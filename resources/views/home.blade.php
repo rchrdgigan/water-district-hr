@@ -1,7 +1,13 @@
 @extends('layouts.admin')
+
 @section('title')
 Dashboard
 @endsection
+
+@section('breadcrumbs')
+Dashboard
+@endsection
+
 @section('content')
 <div class="col-span-12 mt-8">
     <div class="intro-y flex items-center h-10">
