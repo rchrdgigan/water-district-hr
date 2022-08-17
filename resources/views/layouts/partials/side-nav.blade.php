@@ -37,7 +37,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('employee.schedule')}}" class="side-menu">
+                    <a href="{{route('employee.schedule')}}" class="side-menu {{(!request()->routeIs('employee.schedule'))?:'side-menu--active'}}">
                         <div class="side-menu__icon"> <i data-feather="clipboard"></i></div>
                         <div class="side-menu__title"> Schedule </div>
                     </a>

@@ -22,13 +22,8 @@
         </div>
     </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="{{asset('dist/js/app.js')}}"></script>
-    <script src="{{asset('js/validation.js')}}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
-    <!-- Chartisan -->
-    <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
     @stack('custom-scripts')
 </body>
 </html>
