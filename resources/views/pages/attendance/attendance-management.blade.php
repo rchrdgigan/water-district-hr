@@ -34,6 +34,7 @@ Attendance
                     <th class="custom__bg__theme text-white">Name</th>
                     <th class="custom__bg__theme text-white">Time-In</th>
                     <th class="custom__bg__theme text-white">Time-Out</th>
+                    <th class="custom__bg__theme text-white">Status</th>
                     <th class="custom__bg__theme text-white" style="border-top-right-radius: 20px;">Action</th>
                 </tr>
             </thead>
@@ -67,6 +68,11 @@ Attendance
                     </td>
                     <td class="w-40">
                         <div class="flex">
+                            <p class="font-small bg-green-500 custom__button text-white">Ontime</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
                             <button class="custom__button w-35 text-white hover:bg-blue-400 bg-theme-9 xl:mr-3 flex"><i data-feather="edit"></i></button>
                             <button class="custom__button w-35 text-white hover:bg-blue-400 bg-theme-6 xl:mr-3 flex"><i data-feather="delete"></i></button>
                         </div>
@@ -91,12 +97,17 @@ Attendance
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">08:00AM</p>
+                            <p class="font-small">09:00AM</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
                             <p class="font-small">05:00PM</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-small bg-red-500 custom__button text-white">Late</p>
                         </div>
                     </td>
                     <td class="w-40">
@@ -131,6 +142,11 @@ Attendance
                     <td class="w-40">
                         <div class="flex">
                             <p class="font-small">05:00PM</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-small bg-green-500 custom__button text-white">Ontime</p>
                         </div>
                     </td>
                     <td class="w-40">
