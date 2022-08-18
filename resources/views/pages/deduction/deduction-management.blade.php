@@ -1,19 +1,19 @@
 @extends('../../layouts.admin')
 
 @section('title')
-Overtime Management
+Deductions Management
 @endsection
 
 @section('breadcrumbs')
-Overtime
+Deductions
 @endsection
 
 @section('content')
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-no-wrap items-center mt-2">
-    <h2 class="intro-y text-lg font-medium mr-5 text-center">Overtime Management</h2>
+    <h2 class="intro-y text-lg font-medium mr-5 text-center">Deductions Management</h2>
         <div class="intro-x text-center xl:text-left">
-            <button class="custom__button w-full text-white text-center hover:bg-blue-400 bg-theme-1 xl:mr-3 flex" type="submit"><i data-feather="plus"></i><i data-feather="users"></i></button>
+            <button class="custom__button w-full text-white text-center hover:bg-blue-400 bg-theme-1 xl:mr-3 flex" type="submit"><i data-feather="plus"></i>New</button>
         </div>
         <div class="hidden md:block mx-auto text-gray-600"></div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
@@ -29,11 +29,8 @@ Overtime
         <table class="table table-report sm:mt-2">
             <thead>
                 <tr>
-                    <th class="custom__bg__theme text-white" style="border-top-left-radius: 20px;">Date</th>
-                    <th class="custom__bg__theme text-white">ID Number</th>
-                    <th class="custom__bg__theme text-white">Name</th>
-                    <th class="custom__bg__theme text-white">No. of Hours</th>
-                    <th class="custom__bg__theme text-white">Rate</th>
+                    <th class="custom__bg__theme text-white" style="border-top-left-radius: 20px;">Description</th>
+                    <th class="custom__bg__theme text-white">Amount</th>
                     <th class="custom__bg__theme text-white" style="border-top-right-radius: 20px;">Action</th>
                 </tr>
             </thead>
@@ -42,27 +39,50 @@ Overtime
                 <tr class="intro-x">
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">Aug 17, 2022</p>
+                            <p class="font-small">Pag-Ibig</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">4422144</p>
+                            <p class="font-small">200</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">Brad Feet</p>
+                            <button class="custom__button w-30 text-white hover:bg-blue-400 bg-theme-9 xl:mr-3 flex"><i data-feather="edit"></i></button>
+                            <button class="custom__button w-30 text-white hover:bg-blue-400 bg-theme-6 xl:mr-3 flex"><i data-feather="delete"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-small">Phil-Health</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">2</p>
+                            <p class="font-small">300</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">34.00</p>
+                            <button class="custom__button w-30 text-white hover:bg-blue-400 bg-theme-9 xl:mr-3 flex"><i data-feather="edit"></i></button>
+                            <button class="custom__button w-30 text-white hover:bg-blue-400 bg-theme-6 xl:mr-3 flex"><i data-feather="delete"></i></button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-small">SSS</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-small">100</p>
                         </div>
                     </td>
                     <td class="w-40">

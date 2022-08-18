@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AttendanceController,EmployeeController,OvertimeController};
+use App\Http\Controllers\{AttendanceController,EmployeeController,OvertimeController,DeductionController,PositionController,PayrollController,ScheduleController};
 
 /*
 |--------------------------------------------------------------------------
@@ -22,33 +22,68 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
- //attendance
- Route::controller(AttendanceController::class)
- ->as('attendance.')
- ->prefix('attendance')
- ->group(function(){
-     Route::get('/', 'index')->name('index');
-     Route::get('/create', 'create')->name('create');
-     Route::post('/store', 'store')->name('store');
-     Route::get('/edit/{id}', 'edit')->name('edit');
-     Route::put('/update/{id}', 'update')->name('update');
- });
-
- //employee
- Route::controller(EmployeeController::class)
- ->as('employee.')
- ->prefix('employee')
- ->group(function(){
+//attendance
+Route::controller(AttendanceController::class)
+->as('attendance.')
+->prefix('attendance')
+->group(function(){
     Route::get('/', 'index')->name('index');
-    Route::get('/schedule', 'schedule')->name('schedule');
-    Route::get('/create', '/create')->name('create');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::put('/update/{id}', 'update')->name('update');
+});
+
+//employee
+Route::controller(EmployeeController::class)
+->as('employee.')
+->prefix('employee')
+->group(function(){
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
     Route::post('/store', 'store')->name('store');
     Route::get('/edit/{id}','edit')->name('edit');
     Route::put('/update/{id}', 'update')->name('edit');
+
+    //empolyee schedule
+    Route::get('/schedule', 'schedule')->name('schedule');
+
     Route::controller(OvertimeController::class)
     ->as('overtime.')
     ->prefix('overtime')
     ->group(function(){
         Route::get('/', 'index')->name('index');
     });
- });
+});
+
+//deduction
+Route::controller(DeductionController::class)
+->as('deduction.')
+->prefix('deduction')
+->group(function(){
+    Route::get('/','index')->name('index');
+});
+
+//position
+Route::controller(PositionController::class)
+->as('position.')
+->prefix('position')
+->group(function(){
+    Route::get('/','index')->name('index');
+});
+
+//payroll
+Route::controller(PayrollController::class)
+->as('payroll.')
+->prefix('payroll')
+->group(function(){
+    Route::get('/','index')->name('index');
+});
+
+//schedule
+Route::controller(ScheduleController::class)
+->as('schedule.')
+->prefix('schedule')
+->group(function(){
+    Route::get('/','index')->name('index');
+});

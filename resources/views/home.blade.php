@@ -42,7 +42,7 @@ Dashboard
             <div class="report-box zoom-in">
                 <div class="box p-5">
                     <div class="flex">
-                        <i data-feather="clock" class="text-theme-18"></i>
+                        <i data-feather="clock" class="text-theme-9"></i>
                     </div>
                     <div class="text-3xl font-bold leading-8 mt-6">0</div>
                     <div class="text-base text-gray-600 mt-1">On Time Today</div>

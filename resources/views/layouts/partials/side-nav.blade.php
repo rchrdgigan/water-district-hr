@@ -46,30 +46,30 @@
         </li>
         
         <li>
-            <a href="#" class="side-menu">
+            <a href="{{route('deduction.index')}}" class="side-menu {{(!request()->routeIs('deduction.*'))?:'side-menu--active'}}">
                 <div class="side-menu__icon"> <i data-feather="user-minus"></i> </div>
                 <div class="side-menu__title"> Deduction </div>
             </a>
         </li>
 
         <li>
-            <a href="#" class="side-menu">
+            <a href="{{route('position.index')}}" class="side-menu {{(!request()->routeIs('position.*'))?:'side-menu--active'}}">
                 <div class="side-menu__icon"> <i data-feather="briefcase"></i> </div>
                 <div class="side-menu__title"> Position </div>
             </a>
         </li>
 
         <li>
-            <a href="#" class="side-menu">
-                <div class="side-menu__icon"> <i data-feather="credit-card"></i> </div>
-                <div class="side-menu__title"> Payroll </div>
+            <a href="{{route('schedule.index')}}" class="side-menu {{(!request()->routeIs('schedule.*'))?:'side-menu--active'}}">
+                <div class="side-menu__icon"> <i data-feather="clock"></i> </div>
+                <div class="side-menu__title"> Schedule </div>
             </a>
         </li>
 
         <li>
-            <a href="#" class="side-menu">
-                <div class="side-menu__icon"> <i data-feather="clock"></i> </div>
-                <div class="side-menu__title"> Schedule </div>
+            <a href="{{route('payroll.index')}}" class="side-menu {{(!request()->routeIs('payroll.*'))?:'side-menu--active'}}">
+                <div class="side-menu__icon"> <i data-feather="credit-card"></i> </div>
+                <div class="side-menu__title"> Payroll </div>
             </a>
         </li>
        

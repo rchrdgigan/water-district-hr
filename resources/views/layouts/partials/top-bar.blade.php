@@ -1,7 +1,7 @@
 <div class="top-bar">
-    <div class="-intro-x breadcrumb mr-auto hidden sm:flex"> <a href="{{route('home')}}" class="">Application</a> <i data-feather="chevron-right" class="breadcrumb__icon"></i> <a href="" class="breadcrumb--active">@yield('breadcrumbs')</a> </div>
+    <div class="intro-x breadcrumb mr-auto sm:flex"> <a href="{{route('home')}}" class="">Application</a> <i data-feather="chevron-right" class="breadcrumb__icon"></i> <a href="" class="breadcrumb--active">@yield('breadcrumbs')</a> </div>
     <div class="intro-x dropdown w-8 h-8">
-        <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in">
+        <div class="dropdown-toggle w-8 h-8 rounded-full hover:bg-blue-400 overflow-hidden shadow-lg image-fit zoom-in p-1">
             <i data-feather="user"></i>
         </div>
         <div class="dropdown-box w-56">
