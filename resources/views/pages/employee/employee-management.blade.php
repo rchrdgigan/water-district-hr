@@ -13,7 +13,7 @@ Employee
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-no-wrap items-center mt-2">
     <h2 class="intro-y text-lg font-medium mr-5 text-center">Employee Management</h2>
         <div class="intro-x text-center xl:text-left">
-            <button class="custom__button w-full text-white text-center hover:bg-blue-400 bg-theme-1 xl:mr-3 flex" type="submit"><i data-feather="plus"></i><i data-feather="users"></i></button>
+            <a href="javascript:;" data-toggle="modal" data-target="#add" class="custom__button w-full text-white text-center hover:bg-blue-400 bg-theme-1 xl:mr-3 flex"><i data-feather="plus"></i><i data-feather="users"></i></a>
         </div>
         <div class="hidden md:block mx-auto text-gray-600"></div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
@@ -30,7 +30,6 @@ Employee
             <thead>
                 <tr>
                     <th class="custom__bg__theme text-white" style="border-top-left-radius: 20px;">ID Number</th>
-                    <th class="custom__bg__theme text-white">QR Code</th>
                     <th class="custom__bg__theme text-white">Photo</th>
                     <th class="custom__bg__theme text-white">Name</th>
                     <th class="custom__bg__theme text-white">Position</th>
@@ -45,12 +44,6 @@ Employee
                     <td class="w-40">
                         <div class="flex">
                             <p class="font-small">4422144</p>
-                        </div>
-                    </td>
-                    <td class="w-40">
-                        <div class="flex">
-                            <img src="{{asset('./img/example.png')}}" width="40" class="mr-3" alt="" srcset="">
-                            <button class="custom__button w-35 text-white text-center bg-theme-1 xl:mr-3  hover:bg-blue-400 flex"><i data-feather="download"></i> Download</button>
                         </div>
                     </td>
                     <td class="w-40">
@@ -92,12 +85,6 @@ Employee
                     <td class="w-40">
                         <div class="flex">
                             <p class="font-small">4422133</p>
-                        </div>
-                    </td>
-                    <td class="w-40">
-                        <div class="flex">
-                            <img src="{{asset('./img/example.png')}}" width="40" class="mr-3" alt="" srcset="">
-                            <button class="custom__button w-35 text-white text-center bg-theme-1 xl:mr-3  hover:bg-blue-400 flex"><i data-feather="download"></i>Download</button>
                         </div>
                     </td>
                     <td class="w-40">
@@ -144,12 +131,6 @@ Employee
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <img src="{{asset('./img/example.png')}}" width="40" class="mr-3" alt="" srcset="">
-                            <button class="custom__button w-35 text-white text-center bg-theme-1 xl:mr-3  hover:bg-blue-400 flex"><i data-feather="download"></i>Download</button>
-                        </div>
-                    </td>
-                    <td class="w-40">
-                        <div class="flex">
                             <img src="{{asset('./img/profile.png')}}" width="40" class="mr-3" alt="" srcset="">
                             <button class="custom__button w-35 text-white text-center bg-theme-1 xl:mr-3  hover:bg-blue-400 flex"><i data-feather="upload"></i>Upload</button>
                         </div>
@@ -186,6 +167,44 @@ Employee
             </tbody>
         </table>
     </div>
-    
 </div>
+
+<!-- Add Employee -->
+ <div class="modal" id="add">
+     <div class="modal__content">
+         <div class="flex items-center px-5 py-5 sm:py-3 border-b border-gray-200 dark:border-dark-5">
+             <h2 class="font-medium text-base mr-auto">Add New Employee</h2> 
+             <div class="dropdown sm:hidden"> <a class="dropdown-toggle w-5 h-5 block" href="javascript:;"> <i data-feather="more-horizontal" class="w-5 h-5 text-gray-700 dark:text-gray-600"></i> </a>
+                 <div class="dropdown-box w-40">
+                     <div class="dropdown-box__content box dark:bg-dark-1 p-2"> <a href="javascript:;" class="flex items-center p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="file" class="w-4 h-4 mr-2"></i> Download Docs </a> </div>
+                 </div>
+             </div>
+         </div>
+         <div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
+             <div class="col-span-12 sm:col-span-6"> <label>First Name</label> <input type="text" class="input w-full border mt-2 flex-1" placeholder="Input First Name"> </div>
+             <div class="col-span-12 sm:col-span-6"> <label>Middle Name</label> <input type="text" class="input w-full border mt-2 flex-1" placeholder="Input Middle Name"> </div>
+             <div class="col-span-12 sm:col-span-6"> <label>Lastname</label> <input type="text" class="input w-full border mt-2 flex-1" placeholder="Input Last Name"> </div>
+             <div class="col-span-12 sm:col-span-6"> <label>Address</label> <input type="text" class="input w-full border mt-2 flex-1" placeholder="Input Address"> </div>
+             <div class="col-span-12 sm:col-span-6"> <label>Date of Birth</label> <input type="text" class="input w-full border mt-2 flex-1" placeholder="Input Date of Birth"> </div>
+             <div class="col-span-12 sm:col-span-6"> <label>Contact No.</label> <input type="text" class="input w-full border mt-2 flex-1" placeholder="Input Contact Number"> </div>
+
+             <div class="col-span-12 sm:col-span-6"> <label>Gender</label> <select class="input w-full border mt-2 flex-1">
+                     <option>--Select--</option>
+                     <option>Male</option>
+                     <option>Female</option>
+                 </select> </div>
+
+            <div class="col-span-12 sm:col-span-6"> <label>Position</label> <select class="input w-full border mt-2 flex-1">
+                <option>--Select--</option>
+            </select> </div>
+
+            <div class="col-span-12 sm:col-span-6"> <label>Schedule</label> <select class="input w-full border mt-2 flex-1">
+                <option>--Select--</option>
+            </select> </div>
+
+            <div class="col-span-12 sm:col-span-6"> <label>Upload Photo</label> <input type="file" class="input w-full border mt-2 flex-1"> </div>
+         </div>
+         <div class="px-5 py-3 text-right border-t border-gray-200 dark:border-dark-5"> <button type="button" data-dismiss="modal" class="button w-20 border text-gray-700 dark:border-dark-5 dark:text-gray-300 mr-1">Cancel</button> <button type="button" class="button w-20 bg-theme-1 text-white">Save</button> </div>
+     </div>
+ </div>
 @endsection
