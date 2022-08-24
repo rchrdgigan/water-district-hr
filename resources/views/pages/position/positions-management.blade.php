@@ -13,7 +13,7 @@ Positions
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-no-wrap items-center mt-2">
     <h2 class="intro-y text-lg font-medium mr-5 text-center">Positions Management</h2>
         <div class="intro-x text-center xl:text-left">
-            <button class="custom__button w-full text-white text-center hover:bg-blue-400 bg-theme-1 xl:mr-3 flex" type="submit"><i data-feather="plus"></i><i data-feather="briefcase"></i></button>
+            <a href="javascript:;" data-toggle="modal" data-target="#add" class="custom__button w-full text-white text-center hover:bg-blue-400 bg-theme-1 xl:mr-3 flex" type="submit"><i data-feather="plus"></i><i data-feather="briefcase"></i></a>
         </div>
         <div class="hidden md:block mx-auto text-gray-600"></div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
@@ -35,28 +35,73 @@ Positions
                 </tr>
             </thead>
             <tbody>
-
+                @forelse($positions as $data)
+                    <tr class="intro-x">
+                        <td class="w-40">
+                            <div class="flex">
+                                <p class="font-small">{{$data->description}}</p>
+                            </div>
+                        </td>
+                        <td class="w-40">
+                            <div class="flex">
+                                <p class="font-small">{{$data->rate}}</p>
+                            </div>
+                        </td>
+                        <td class="w-40">
+                            <div class="flex">
+                                <a href="javascript:;" data-toggle="modal" data-target="#edit" data-id="{{$data->id}}" data-description="{{$data->description}}" data-rate="{{$data->rate}}" class="edit-dialog custom__button w-30 text-white hover:bg-blue-400 bg-theme-9 xl:mr-3 flex"><i data-feather="edit"></i></a>
+                                <a href="javascript:;" data-toggle="modal" data-target="#delete" class="delete-dialog custom__button w-30 text-white hover:bg-blue-400 bg-theme-6 xl:mr-3 flex" data-id="{{$data->id}}"><i data-feather="delete"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
                 <tr class="intro-x">
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">Staff</p>
+                            <p class="font-small"></p>
+                        </div>
+                    </td>
+                    <td class="w-40 text-center">
+                        <div class="flex justify-center">
+                            <p class="font-small">No Data Available!</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">50</p>
-                        </div>
-                    </td>
-                    <td class="w-40">
-                        <div class="flex">
-                            <button class="custom__button w-30 text-white hover:bg-blue-400 bg-theme-9 xl:mr-3 flex"><i data-feather="edit"></i></button>
-                            <button class="custom__button w-30 text-white hover:bg-blue-400 bg-theme-6 xl:mr-3 flex"><i data-feather="delete"></i></button>
+                            <p class="font-small"></p>
                         </div>
                     </td>
                 </tr>
-
+                @endforelse
             </tbody>
         </table>
+    </div>
+</div>
+
+<!-- Add Position -->
+<div class="modal" id="add">
+    <div class="modal__content">
+        <form action="{{route('position.store')}}" method="post">
+        @csrf
+            <div class="flex items-center px-5 py-5 sm:py-3 border-b border-gray-200 dark:border-dark-5">
+                <h2 class="font-medium text-base mr-auto">Add Positions</h2> 
+            </div>
+            <div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
+                <div class="col-span-12 sm:col-span-12"> <label>Description</label> <input type="text" name="description" class="input w-full border mt-2 flex-1" placeholder="Input Description">
+                    @error('description')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+              
+                <div class="col-span-12 sm:col-span-12"> <label>Rate Per Hour</label> <input type="text" name="rate" class="input w-full border mt-2 flex-1" placeholder="Input Rate Per Hour"> 
+                    @error('rate')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+              
+            </div>
+            <div class="px-5 py-3 text-right border-t border-gray-200 dark:border-dark-5"> <button type="button" data-dismiss="modal" class="button w-20 border text-gray-700 dark:border-dark-5 dark:text-gray-300 mr-1">Cancel</button> <button type="submit" class="button w-20 bg-theme-1 text-white">Save</button> </div>
+        </form>
     </div>
 </div>
 @endsection

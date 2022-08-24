@@ -18,6 +18,7 @@
         @include('layouts.partials.side-nav')
         <div class="content">
             @include('layouts.partials.top-bar')
+            @include('sweetalert::alert')
             @yield('content')
         </div>
     </div>

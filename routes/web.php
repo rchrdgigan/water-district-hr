@@ -28,10 +28,6 @@ Route::controller(AttendanceController::class)
 ->prefix('attendance')
 ->group(function(){
     Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/store', 'store')->name('store');
-    Route::get('/edit/{id}', 'edit')->name('edit');
-    Route::put('/update/{id}', 'update')->name('update');
 });
 
 //employee
@@ -40,10 +36,6 @@ Route::controller(EmployeeController::class)
 ->prefix('employee')
 ->group(function(){
     Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/store', 'store')->name('store');
-    Route::get('/edit/{id}','edit')->name('edit');
-    Route::put('/update/{id}', 'update')->name('edit');
 
     //empolyee schedule
     Route::get('/schedule', 'schedule')->name('schedule');
@@ -62,6 +54,9 @@ Route::controller(DeductionController::class)
 ->prefix('deduction')
 ->group(function(){
     Route::get('/','index')->name('index');
+    Route::post('/store', 'store')->name('store');
+    Route::put('/update', 'update')->name('update');
+    Route::delete('/destroy', 'destroy')->name('destroy');
 });
 
 //position
@@ -70,6 +65,7 @@ Route::controller(PositionController::class)
 ->prefix('position')
 ->group(function(){
     Route::get('/','index')->name('index');
+    Route::post('/store', 'store')->name('store');
 });
 
 //payroll

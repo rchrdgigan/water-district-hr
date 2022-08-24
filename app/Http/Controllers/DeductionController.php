@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request;
+use App\Models\Deduction;
+use App\Http\Requests\DeductionRequest;
+use Illuminate\Support\Facades\DB;
 
 class DeductionController extends Controller
 {
@@ -13,7 +16,9 @@ class DeductionController extends Controller
      */
     public function index()
     {
-        return view('pages.deduction.deduction-management');
+        return view('pages.deduction.deduction-management', [
+            'deductions' => DB::table('deductions')->paginate(10)
+        ]);
     }
 
     /**
@@ -32,9 +37,15 @@ class DeductionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DeductionRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $deduction = Deduction::create([
+            'description' => $validated['description'],
+            'amount' => $validated['amount'],
+        ]);
+        toast('Deduction has been saved!','success');
+        return redirect()->back();
     }
 
     /**
@@ -66,9 +77,19 @@ class DeductionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DeductionRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $deduction = Deduction::where('id',$request->id)->update([
+            'description' => $validated['description'],
+            'amount' => $validated['amount'],
+        ]);
+        if($deduction){
+            toast('Deduction has been updated!','success');
+            return redirect()->back();
+        }
+        toast('Deduction has been updated failed!','error');
+        return redirect()->back();
     }
 
     /**
@@ -77,8 +98,15 @@ class DeductionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $deduction = Deduction::findOrFail($request->id);
+        if($deduction){
+            $deduction->delete();
+            toast('Deduction has been deleted!','info');
+            return redirect()->back();
+        }
+        toast('Deduction has been failed to delete!','error');
+        return redirect()->back();
     }
 }
