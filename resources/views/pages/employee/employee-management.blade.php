@@ -64,7 +64,7 @@ Employee
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">08:00AM - 05:00PM</p>
+                            <p class="font-small">08:00AM - 12:00PM | 01:00PM - 05:00PM</p>
                         </div>
                     </td>
                     <td class="w-40">
@@ -105,7 +105,7 @@ Employee
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">08:00AM - 05:00PM</p>
+                            <p class="font-small">08:00AM - 12:00PM | 01:00PM - 05:00PM</p>
                         </div>
                     </td>
                     <td class="w-40">
@@ -147,7 +147,7 @@ Employee
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">08:00AM - 05:00PM</p>
+                            <p class="font-small">08:00AM - 12:00PM | 01:00PM - 05:00PM</p>
                         </div>
                     </td>
                     <td class="w-40">

@@ -82,9 +82,19 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PositionRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $position = Position::where('id',$request->id)->update([
+            'description' => $validated['description'],
+            'rate' => $validated['rate'],
+        ]);
+        if($position){
+            toast('Position has been updated!','success');
+            return redirect()->back();
+        }
+        toast('Position has been failed to updated!','error');
+        return redirect()->back();
     }
 
     /**
@@ -93,8 +103,15 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $position = Position::findOrFail($request->id);
+        if($position){
+            $position->delete();
+            toast('Position has been deleted!','info');
+            return redirect()->back();
+        }
+        toast('Position has been failed to delete!','error');
+        return redirect()->back();
     }
 }

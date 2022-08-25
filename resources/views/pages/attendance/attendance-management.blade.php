@@ -32,8 +32,10 @@ Attendance
                     <th class="custom__bg__theme text-white" style="border-top-left-radius: 20px;">Date</th>
                     <th class="custom__bg__theme text-white">ID Number</th>
                     <th class="custom__bg__theme text-white">Name</th>
-                    <th class="custom__bg__theme text-white">Time-In</th>
-                    <th class="custom__bg__theme text-white">Time-Out</th>
+                    <th class="custom__bg__theme text-white">Time-In AM</th>
+                    <th class="custom__bg__theme text-white">Time-Out AM</th>
+                    <th class="custom__bg__theme text-white">Time-In PM</th>
+                    <th class="custom__bg__theme text-white">Time-Out PM</th>
                     <th class="custom__bg__theme text-white">Status</th>
                     <th class="custom__bg__theme text-white" style="border-top-right-radius: 20px;">Action</th>
                 </tr>
@@ -59,6 +61,16 @@ Attendance
                     <td class="w-40">
                         <div class="flex">
                             <p class="font-small">08:00AM</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-small">12:00PM</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-small">01:00PM</p>
                         </div>
                     </td>
                     <td class="w-40">
@@ -102,6 +114,16 @@ Attendance
                     </td>
                     <td class="w-40">
                         <div class="flex">
+                            <p class="font-small">12:00PM</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-small">01:00PM</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
                             <p class="font-small">05:00PM</p>
                         </div>
                     </td>
@@ -137,6 +159,16 @@ Attendance
                     <td class="w-40">
                         <div class="flex">
                             <p class="font-small">08:00AM</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-small">12:00PM</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-small">01:00PM</p>
                         </div>
                     </td>
                     <td class="w-40">

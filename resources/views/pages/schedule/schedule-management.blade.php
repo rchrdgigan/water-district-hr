@@ -29,8 +29,10 @@ Schedule
         <table class="table table-report sm:mt-2">
             <thead>
                 <tr>
-                    <th class="custom__bg__theme text-white" style="border-top-left-radius: 20px;">Time-In</th>
-                    <th class="custom__bg__theme text-white">Time-Out</th>
+                    <th class="custom__bg__theme text-white" style="border-top-left-radius: 20px;">Time-In AM</th>
+                    <th class="custom__bg__theme text-white">Time-Out AM</th>
+                    <th class="custom__bg__theme text-white">Time-In PM</th>
+                    <th class="custom__bg__theme text-white">Time-Out PM</th>
                     <th class="custom__bg__theme text-white" style="border-top-right-radius: 20px;">Action</th>
                 </tr>
             </thead>
@@ -40,6 +42,16 @@ Schedule
                     <td class="w-40">
                         <div class="flex">
                             <p class="font-small">08:00AM</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-small">12:00PM</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-small">01:00PM</p>
                         </div>
                     </td>
                     <td class="w-40">

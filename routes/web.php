@@ -66,6 +66,8 @@ Route::controller(PositionController::class)
 ->group(function(){
     Route::get('/','index')->name('index');
     Route::post('/store', 'store')->name('store');
+    Route::put('/update', 'update')->name('update');
+    Route::delete('/destroy', 'destroy')->name('destroy');
 });
 
 //payroll
