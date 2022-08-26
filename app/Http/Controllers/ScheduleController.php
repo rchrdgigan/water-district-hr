@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Schedule;
+use App\Http\Requests\ScheduleRequest;
+use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
 {
@@ -13,7 +16,9 @@ class ScheduleController extends Controller
      */
     public function index()
     {
-        return view('pages.schedule.schedule-management');
+        return view('pages.schedule.schedule-management', [
+            'schedules' => DB::table('schedules')->paginate(10)
+        ]);
     }
 
     /**
@@ -32,9 +37,17 @@ class ScheduleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ScheduleRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $schedule = Schedule::create([
+            'time_in_am' => $validated['time_in_am'],
+            'time_out_am' => $validated['time_out_am'],
+            'time_in_pm' => $validated['time_in_pm'],
+            'time_out_pm' => $validated['time_out_pm'],
+        ]);
+        toast('Schedule has been saved!','success');
+        return redirect()->back();
     }
 
     /**
@@ -45,7 +58,7 @@ class ScheduleController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -66,9 +79,21 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ScheduleRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $schedule = Schedule::where('id',$request->id)->update([
+            'time_in_am' => $validated['time_in_am'],
+            'time_out_am' => $validated['time_out_am'],
+            'time_in_pm' => $validated['time_in_pm'],
+            'time_out_pm' => $validated['time_out_pm'],
+        ]);
+        if($schedule){
+            toast('Schedule has been updated!','success');
+            return redirect()->back();
+        }
+        toast('Schedule has been failed to updated!','error');
+        return redirect()->back();
     }
 
     /**
@@ -77,8 +102,15 @@ class ScheduleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $schedule = Schedule::findOrFail($request->id);
+        if($schedule){
+            $schedule->delete();
+            toast('Schedule has been deleted!','info');
+            return redirect()->back();
+        }
+        toast('Schedule has been failed to delete!','error');
+        return redirect()->back();
     }
 }
