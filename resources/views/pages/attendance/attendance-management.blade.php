@@ -29,62 +29,62 @@ Attendance
         <table class="table table-report sm:mt-2">
             <thead>
                 <tr>
-                    <th class="custom__bg__theme text-white" style="border-top-left-radius: 20px;">Date</th>
-                    <th class="custom__bg__theme text-white">ID Number</th>
-                    <th class="custom__bg__theme text-white">Name</th>
-                    <th class="custom__bg__theme text-white">Time-In AM</th>
-                    <th class="custom__bg__theme text-white">Time-Out AM</th>
-                    <th class="custom__bg__theme text-white">Time-In PM</th>
-                    <th class="custom__bg__theme text-white">Time-Out PM</th>
-                    <th class="custom__bg__theme text-white">Status</th>
-                    <th class="custom__bg__theme text-white" style="border-top-right-radius: 20px;">Action</th>
+                    <th class="custom__bg__theme text-center text-white" style="border-top-left-radius: 20px;">Date</th>
+                    <th class="custom__bg__theme text-center text-white">ID Number</th>
+                    <th class="custom__bg__theme text-center text-white">Name</th>
+                    <th class="custom__bg__theme text-center text-white border-l">AM Time-In</th>
+                    <th class="custom__bg__theme text-center text-white border-r">AM Time-Out</th>
+                    <th class="custom__bg__theme text-center text-white border-l">PM Time-In</th>
+                    <th class="custom__bg__theme text-center text-white border-r">PM Time-Out</th>
+                    <th class="custom__bg__theme text-center text-white">Status</th>
+                    <th class="custom__bg__theme text-center text-white" style="border-top-right-radius: 20px;">Action</th>
                 </tr>
             </thead>
             <tbody>
 
                 <tr class="intro-x">
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <p class="font-small">Aug 20, 2022</p>
                         </div>
                     </td>
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <p class="font-small">4422144</p>
                         </div>
                     </td>
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <p class="font-small">Brad Feet</p>
                         </div>
                     </td>
-                    <td class="w-40">
-                        <div class="flex">
+                    <td class="w-40 border-l">
+                        <div class="flex justify-center">
                             <p class="font-small">08:00AM</p>
                         </div>
                     </td>
-                    <td class="w-40">
-                        <div class="flex">
+                    <td class="w-40 border-r">
+                        <div class="flex justify-center">
                             <p class="font-small">12:00PM</p>
                         </div>
                     </td>
-                    <td class="w-40">
-                        <div class="flex">
+                    <td class="w-40 border-l">
+                        <div class="flex justify-center">
                             <p class="font-small">01:00PM</p>
                         </div>
                     </td>
-                    <td class="w-40">
-                        <div class="flex">
+                    <td class="w-40 border-r">
+                        <div class="flex justify-center">
                             <p class="font-small">05:00PM</p>
                         </div>
                     </td>
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <p class="font-small bg-green-500 custom__button text-white">Ontime</p>
                         </div>
                     </td>
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <button class="custom__button w-35 text-white hover:bg-blue-400 bg-theme-9 xl:mr-3 flex"><i data-feather="edit"></i></button>
                             <button class="custom__button w-35 text-white hover:bg-blue-400 bg-theme-6 xl:mr-3 flex"><i data-feather="delete"></i></button>
                         </div>
@@ -93,47 +93,47 @@ Attendance
 
                 <tr class="intro-x">
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <p class="font-small">Aug 20, 2022</p>
                         </div>
                     </td>
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <p class="font-small">4422133</p>
                         </div>
                     </td>
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <p class="font-small">Brad Er</p>
                         </div>
                     </td>
-                    <td class="w-40">
-                        <div class="flex">
-                            <p class="font-small">09:00AM</p>
+                    <td class="w-40 border-l">
+                        <div class="flex justify-center">
+                            <p class="font-small">08:00AM</p>
                         </div>
                     </td>
-                    <td class="w-40">
-                        <div class="flex">
+                    <td class="w-40 border-r">
+                        <div class="flex justify-center">
                             <p class="font-small">12:00PM</p>
                         </div>
                     </td>
-                    <td class="w-40">
-                        <div class="flex">
+                    <td class="w-40 border-l">
+                        <div class="flex justify-center">
                             <p class="font-small">01:00PM</p>
                         </div>
                     </td>
-                    <td class="w-40">
-                        <div class="flex">
+                    <td class="w-40 border-r">
+                        <div class="flex justify-center">
                             <p class="font-small">05:00PM</p>
                         </div>
                     </td>
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <p class="font-small bg-red-500 custom__button text-white">Late</p>
                         </div>
                     </td>
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <button class="custom__button w-35 text-white hover:bg-blue-400 bg-theme-9 xl:mr-3 flex"><i data-feather="edit"></i></button>
                             <button class="custom__button w-35 text-white hover:bg-blue-400 bg-theme-6 xl:mr-3 flex"><i data-feather="delete"></i></button>
                         </div>
@@ -142,47 +142,47 @@ Attendance
 
                 <tr class="intro-x">
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <p class="font-small">Aug 17, 2022</p>
                         </div>
                     </td>
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <p class="font-small">4422122</p>
                         </div>
                     </td>
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <p class="font-small">Brad Or</p>
                         </div>
                     </td>
-                    <td class="w-40">
-                        <div class="flex">
+                    <td class="w-40 border-l">
+                        <div class="flex justify-center">
                             <p class="font-small">08:00AM</p>
                         </div>
                     </td>
-                    <td class="w-40">
-                        <div class="flex">
+                    <td class="w-40 border-r">
+                        <div class="flex justify-center">
                             <p class="font-small">12:00PM</p>
                         </div>
                     </td>
-                    <td class="w-40">
-                        <div class="flex">
+                    <td class="w-40 border-l">
+                        <div class="flex justify-center">
                             <p class="font-small">01:00PM</p>
                         </div>
                     </td>
-                    <td class="w-40">
-                        <div class="flex">
+                    <td class="w-40 border-r">
+                        <div class="flex justify-center">
                             <p class="font-small">05:00PM</p>
                         </div>
                     </td>
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <p class="font-small bg-green-500 custom__button text-white">Ontime</p>
                         </div>
                     </td>
                     <td class="w-40">
-                        <div class="flex">
+                        <div class="flex justify-center">
                             <button class="custom__button w-35 text-white hover:bg-blue-400 bg-theme-9 xl:mr-3 flex"><i data-feather="edit"></i></button>
                             <button class="custom__button w-35 text-white hover:bg-blue-400 bg-theme-6 xl:mr-3 flex"><i data-feather="delete"></i></button>
                         </div>

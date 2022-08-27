@@ -14,7 +14,6 @@ Payroll
     <h2 class="intro-y text-lg font-medium mr-5 text-center">Payroll Management</h2>
         <div class="intro-x text-center xl:text-left flex">
             <button class="custom__button w-36 text-white text-center hover:bg-blue-400 bg-theme-9 xl:mr-3 flex" type="submit"><i data-feather="printer"></i>Print Payroll</button>
-            <button class="custom__button w-36 text-white text-center hover:bg-blue-400 bg-theme-12 xl:mr-3 flex" type="submit"><i data-feather="printer"></i>Print Payslip</button>
         </div>
         <div class="hidden md:block mx-auto text-gray-600"></div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
@@ -34,7 +33,8 @@ Payroll
                     <th class="custom__bg__theme text-white">Employee ID</th>
                     <th class="custom__bg__theme text-white">Gross</th>
                     <th class="custom__bg__theme text-white">Deduction</th>
-                    <th class="custom__bg__theme text-white" style="border-top-right-radius: 20px;">Net Pay</th>
+                    <th class="custom__bg__theme text-white">Net Pay</th>
+                    <th class="custom__bg__theme text-white" style="border-top-right-radius: 20px;">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,6 +63,11 @@ Payroll
                     <td class="w-40">
                         <div class="flex">
                             <p class="font-small">900</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <button class="custom__button w-36 text-white text-center hover:bg-blue-400 bg-theme-12 xl:mr-3 flex" type="submit"><i data-feather="printer"></i>Print Payslip</button>
                         </div>
                     </td>
                 </tr>
