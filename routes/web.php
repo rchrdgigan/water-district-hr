@@ -36,6 +36,10 @@ Route::controller(EmployeeController::class)
 ->prefix('employee')
 ->group(function(){
     Route::get('/', 'index')->name('index');
+    Route::post('/store', 'store')->name('store');
+    Route::put('/image/update', 'updateImage')->name('update.image');
+    Route::put('/update', 'update')->name('update');
+    Route::delete('/destroy', 'destroy')->name('destroy');
 
     //empolyee schedule
     Route::get('/schedule', 'schedule')->name('schedule');

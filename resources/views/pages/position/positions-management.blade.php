@@ -105,7 +105,7 @@ Positions
     </div>
 </div>
 
-<!-- Edit Position -->
+<!-- Edit -->
 <div class="modal" id="edit">
     <div class="modal__content">
         <form action="{{route('position.update')}}" method="post">
