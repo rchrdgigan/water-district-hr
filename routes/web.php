@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AttendanceController,EmployeeController,OvertimeController,DeductionController,PositionController,PayrollController,ScheduleController};
+use App\Http\Controllers\{AttendanceController,EmployeeController,OvertimeController,PayrollController};
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +28,10 @@ Route::controller(AttendanceController::class)
 ->prefix('attendance')
 ->group(function(){
     Route::get('/', 'index')->name('index');
+    Route::get('/search', 'search')->name('search');
+    Route::post('/store', 'store')->name('store');
+    Route::put('/update', 'update')->name('update');
+    Route::delete('/destroy', 'destroy')->name('destroy');
 });
 
 //employee
@@ -43,35 +47,17 @@ Route::controller(EmployeeController::class)
 
     //empolyee schedule
     Route::get('/schedule', 'schedule')->name('schedule');
+    Route::put('/update/schedule', 'updateSchedule')->name('update.schedule');
 
     Route::controller(OvertimeController::class)
     ->as('overtime.')
     ->prefix('overtime')
     ->group(function(){
         Route::get('/', 'index')->name('index');
+        Route::post('/store', 'store')->name('store');
+        Route::put('/update', 'update')->name('update');
+        Route::delete('/destroy', 'destroy')->name('destroy');
     });
-});
-
-//deduction
-Route::controller(DeductionController::class)
-->as('deduction.')
-->prefix('deduction')
-->group(function(){
-    Route::get('/','index')->name('index');
-    Route::post('/store', 'store')->name('store');
-    Route::put('/update', 'update')->name('update');
-    Route::delete('/destroy', 'destroy')->name('destroy');
-});
-
-//position
-Route::controller(PositionController::class)
-->as('position.')
-->prefix('position')
-->group(function(){
-    Route::get('/','index')->name('index');
-    Route::post('/store', 'store')->name('store');
-    Route::put('/update', 'update')->name('update');
-    Route::delete('/destroy', 'destroy')->name('destroy');
 });
 
 //payroll
@@ -80,15 +66,4 @@ Route::controller(PayrollController::class)
 ->prefix('payroll')
 ->group(function(){
     Route::get('/','index')->name('index');
-});
-
-//schedule
-Route::controller(ScheduleController::class)
-->as('schedule.')
-->prefix('schedule')
-->group(function(){
-    Route::get('/','index')->name('index');
-    Route::post('/store', 'store')->name('store');
-    Route::put('/update', 'update')->name('update');
-    Route::delete('/destroy', 'destroy')->name('destroy');
 });

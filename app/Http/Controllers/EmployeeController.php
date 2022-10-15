@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Http\Requests\StoreEmployeeRequest;
 use Illuminate\Support\Facades\File;
-use DB;
 
 class EmployeeController extends Controller
 {
@@ -16,16 +15,28 @@ class EmployeeController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('pages.employee.employee-management', [
-            'employees' => DB::table('employees')->paginate(10)
-        ]);
+        if($request->filled('search')){
+            $pagination = false;
+            $employees = Employee::search($request->search)->get();
+        }else{
+            $pagination = true;
+            $employees = Employee::paginate(10);
+        }
+        return view('pages.employee.employee-management', compact('employees','pagination'));
     }
 
-    public function schedule()
+    public function schedule(Request $request)
     {
-        return view('pages.employee.schedule');
+        if($request->filled('search')){
+            $pagination = false;
+            $employees = Employee::search($request->search)->get();
+        }else{
+            $pagination = true;
+            $employees = Employee::paginate(10);
+        }
+        return view('pages.employee.schedule', compact('employees','pagination'));
     }
 
     public function store(StoreEmployeeRequest $request)
@@ -92,7 +103,7 @@ class EmployeeController extends Controller
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('image')->getClientOriginalExtension();
             $fileToStore = $filename.'_'.time().'.'.$extension;
-            $path = $request->file('image')->storeAs('public/employee_image',$fileToStore);
+            $path = $request->file('image')->storeAs('public/employee_image/',$fileToStore);
             $employee->image = $fileToStore;
         }
         $employee->update();
@@ -124,6 +135,18 @@ class EmployeeController extends Controller
         $employee->rate_per_day = $request->rate_per_day;
         $employee->update();
         toast('Employee information successfully updated!','info');
+        return redirect()->back();
+    }
+
+    public function updateSchedule(Request $request)
+    {
+        $employee = Employee::findorFail($request->id);
+        $employee->time_in_am = $request->time_in_am;
+        $employee->time_out_am = $request->time_out_am;
+        $employee->time_in_pm = $request->time_in_pm;
+        $employee->time_out_pm = $request->time_out_pm;
+        $employee->update();
+        toast('Employee schedule successfully updated!','info');
         return redirect()->back();
     }
 
