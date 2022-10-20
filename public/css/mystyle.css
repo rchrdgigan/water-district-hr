@@ -1,3 +1,8 @@
+html, body{
+    background:linear-gradient(to bottom, #0066FF, #2B51B4);
+    background-repeat: no-repeat;
+    padding-bottom: 43px;
+}
  /* background logo */
 .logo img{
     position: absolute;
@@ -25,9 +30,7 @@
     opacity: 0.3;
     width: 800px;
 }
-.margin__top{
-    margin-top: 6rem;
-}
+
 .border__radius{
     border-radius: 30px;
 }
@@ -38,15 +41,14 @@
 .box-time {
     display: flex;
     justify-content: center;
-    font-size: 30pt;
+    font-size: 20pt;
     font-family: 'Orbitron', sans-serif;
     height: 50px;
-    margin-bottom:20px;
 }
 .box-date {
     display: flex;
     justify-content: center;
-    font-size: 15pt;
+    font-size: 12pt;
     background-color: white;
     margin-bottom:-10px;
 }
@@ -64,7 +66,7 @@
     display: none;
     width: 300px;
     height: 300px;
-    margin: 20px auto;
+    margin: 0px auto;
     border: lime 2px solid;
     border-radius: 30px;
     position: relative;
@@ -134,4 +136,11 @@
     padding: 10px;
     text-align: center;
     margin-bottom: 10px;
+    
+}
+.hover_custom {
+    background:#0066FF;
+}
+.hover_custom:hover, .hover_custom a:hover {
+    background: #2B51B4;
 }

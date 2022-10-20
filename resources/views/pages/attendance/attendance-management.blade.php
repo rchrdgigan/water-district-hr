@@ -69,27 +69,27 @@ Attendance
                     </td>
                     <td class="w-40 border-l">
                         <div class="flex justify-center">
-                            <p class="text-xs">{{Carbon\Carbon::parse($data->time_in_am)->format('h:i A')}}</p>
+                            <p class="text-xs">{{(isset($data->time_in_am)==null)? '--:-- --' : Carbon\Carbon::parse($data->time_in_am)->format('h:i A')}}</p>
                         </div>
                     </td>
                     <td class="w-40 border-r">
                         <div class="flex justify-center">
-                            <p class="text-xs">{{Carbon\Carbon::parse($data->time_out_am)->format('h:i A')}}</p>
+                            <p class="text-xs">{{(isset($data->time_out_am)==null)? '--:-- --' : Carbon\Carbon::parse($data->time_out_am)->format('h:i A')}}</p><p class="ml-auto text-xs {{(!isset($data->time_out_am)==null)? ($data->status_am == true) ? 'bg-green-500' : 'bg-red-500' : 'bg-gray-500'}} rounded-full p-1 text-white">{{(!isset($data->time_out_am)==null)? ($data->status_am == true) ? 'Ontime' : 'Late' :'N/A'}}</p>
                         </div>
                     </td>
                     <td class="w-40 border-l">
                         <div class="flex justify-center">
-                            <p class="text-xs">{{Carbon\Carbon::parse($data->time_in_pm)->format('h:i A')}}</p>
+                            <p class="text-xs">{{(isset($data->time_in_pm)==null)? '--:-- --' : Carbon\Carbon::parse($data->time_in_pm)->format('h:i A')}}</p>
                         </div>
                     </td>
                     <td class="w-40 border-r">
                         <div class="flex justify-center">
-                            <p class="text-xs">{{Carbon\Carbon::parse($data->time_out_pm)->format('h:i A')}}</p>
+                            <p class="text-xs">{{(isset($data->time_out_pm)==null)? '--:-- --' : Carbon\Carbon::parse($data->time_out_pm)->format('h:i A')}}</p><p class="ml-auto text-xs {{(!isset($data->time_out_pm)==null)? ($data->status_pm == true) ? 'bg-green-500' : 'bg-red-500' : 'bg-gray-500'}} rounded-full p-1 text-white">{{(!isset($data->time_out_pm)==null)? ($data->status_pm == true) ? 'Ontime' : 'Late' :'N/A'}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex justify-center">
-                            <p class="text-xs {{($data->status_am == true && $data->status_pm == true)? 'bg-green-500':'bg-red-500'}} rounded-full p-1 text-white">{{($data->status_am == true && $data->status_pm == true)? 'Ontime':'Late'}}</p>
+                            <p class="text-xs {{(!isset($data->time_out_pm)==null && !isset($data->time_out_am)==null) ? ($data->status_am == true && $data->status_pm == true)? 'bg-green-500':'bg-red-500':'bg-gray-500'}} rounded-full p-1 text-white">{{(!isset($data->time_out_pm)==null && !isset($data->time_out_am)==null) ? ($data->status_am == true && $data->status_pm == true)? 'Ontime':'Late':'N/A'}}</p>
                         </div>
                     </td>
                     <td class="w-40">

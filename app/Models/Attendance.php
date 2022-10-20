@@ -18,7 +18,6 @@ class Attendance extends Model
         'time_in_pm',
         'status_pm',
         'time_out_pm',
-        'status',
         'num_hr',
     ];
 

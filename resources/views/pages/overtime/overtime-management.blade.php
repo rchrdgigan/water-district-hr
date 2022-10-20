@@ -29,12 +29,12 @@ Overtime
         <table class="table table-report sm:mt-2">
             <thead>
                 <tr>
-                    <th class="custom__bg__theme text-white" style="border-top-left-radius: 20px;">Date</th>
-                    <th class="custom__bg__theme text-white">ID Number</th>
-                    <th class="custom__bg__theme text-white">Name</th>
-                    <th class="custom__bg__theme text-white">No. of Hours</th>
-                    <th class="custom__bg__theme text-white">Rate</th>
-                    <th class="custom__bg__theme text-white" style="border-top-right-radius: 20px;">Action</th>
+                    <th class="custom__bg__theme text-xs text-white" style="border-top-left-radius: 20px;">Date</th>
+                    <th class="custom__bg__theme text-xs text-white">ID Number</th>
+                    <th class="custom__bg__theme text-xs text-white">Name</th>
+                    <th class="custom__bg__theme text-xs text-white">No. of Hours</th>
+                    <th class="custom__bg__theme text-xs text-white">Rate</th>
+                    <th class="custom__bg__theme text-xs text-white" style="border-top-right-radius: 20px;">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,27 +42,27 @@ Overtime
                 <tr class="intro-x">
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">{{$data->date_overtime}}</p>
+                            <p class="text-xs">{{$data->date_overtime}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">{{$data->employee->generated_id}}</p>
+                            <p class="text-xs">{{$data->employee->generated_id}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">{{$data->employee->fname.' '.$data->employee->mname.' '.$data->employee->lname}}</p>
+                            <p class="text-xs">{{$data->employee->fname.' '.$data->employee->mname.' '.$data->employee->lname}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">{{$data->hours}}</p>
+                            <p class="text-xs">{{$data->hours}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-small">{{$data->rate}}</p>
+                            <p class="text-xs">{{$data->rate}}</p>
                         </div>
                     </td>
                     <td class="w-40">

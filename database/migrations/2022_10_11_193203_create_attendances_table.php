@@ -19,12 +19,11 @@ return new class extends Migration
             $table->date('date');
             $table->time('time_in_am');
             $table->string('status_am')->nullable();
-            $table->time('time_out_am');
-            $table->double('num_hr_am');
-            $table->time('time_in_pm');
+            $table->time('time_out_am')->nullable();
+            $table->time('time_in_pm')->nullable();
             $table->string('status_pm')->nullable();
-            $table->time('time_out_pm');
-            $table->double('num_hr_pm');
+            $table->time('time_out_pm')->nullable();
+            $table->integer('num_hr')->nullable();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });

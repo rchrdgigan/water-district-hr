@@ -5,12 +5,12 @@ function showScanner(){
         displayQr.style.display = 'none';
         document.getElementById('inputID').style.display = 'block';
         document.getElementById('btn').value = 'QR-Code Scanner';
-        document.getElementById('sub_btn').disabled = false;
+        document.getElementById('sub_btn').hidden = false;
     }else{
         displayQr.style.display = 'block';
         document.getElementById('inputID').style.display = 'none';
-        document.getElementById('btn').value = 'Manual Input ID No.';
-        document.getElementById('sub_btn').disabled = true;
+        document.getElementById('btn').value = 'Manual Input ID';
+        document.getElementById('sub_btn').hidden = true;
     }
 }
 

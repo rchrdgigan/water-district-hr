@@ -1,6 +1,6 @@
 <nav class="side-nav">
     <a href="" class="intro-x flex items-center pl-5 pt-4">
-        <img class="w-12" src="{{asset('img/waterdistrict_logo.png')}}">
+        <img class="w-12" src="{{asset('img/waterdistrict_logo.png')}}" style="border-radius:30px;">
         <span class="hidden xl:block text-white text-lg ml-3">IMSHR</span>
     </a>
     <div class="side-nav__devider my-6"></div>
