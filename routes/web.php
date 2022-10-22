@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::post('/store/attendance', [AttendanceController::class, 'storeAttendance'])->name('store.attendance');
+Route::get('/qrscanner/store/{emp_id}', [AttendanceController::class, 'storeUsingQr'])->name('store.qrcode');
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('employee_id');
             $table->date('date');
-            $table->time('time_in_am');
+            $table->time('time_in_am')->nullable();
             $table->string('status_am')->nullable();
             $table->time('time_out_am')->nullable();
             $table->time('time_in_pm')->nullable();

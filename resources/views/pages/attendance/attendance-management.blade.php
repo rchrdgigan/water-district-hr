@@ -89,7 +89,7 @@ Attendance
                     </td>
                     <td class="w-40">
                         <div class="flex justify-center">
-                            <p class="text-xs {{(!isset($data->time_out_pm)==null && !isset($data->time_out_am)==null) ? ($data->status_am == true && $data->status_pm == true)? 'bg-green-500':'bg-red-500':'bg-gray-500'}} rounded-full p-1 text-white">{{(!isset($data->time_out_pm)==null && !isset($data->time_out_am)==null) ? ($data->status_am == true && $data->status_pm == true)? 'Ontime':'Late':'N/A'}}</p>
+                            <p class="text-xs {{(!isset($data->time_out_pm)==null && !isset($data->time_out_am)==null) ? ($data->status_am == true && $data->status_pm == true)? 'bg-green-500':'bg-red-500':'bg-gray-500'}} rounded-full p-1 text-white">{{(!isset($data->time_out_pm)==null && !isset($data->time_out_am)==null) ? ($data->status_am == true && $data->status_pm == true)? 'Ontime':'Late' : 'N/A'}}</p>
                         </div>
                     </td>
                     <td class="w-40">

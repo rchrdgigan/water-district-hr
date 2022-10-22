@@ -227,125 +227,367 @@ class AttendanceController extends Controller
     }
 
     public function storeAttendance(Request $request){
+
         date_default_timezone_set("Asia/Manila");
         $lognow = date('H:i:s');
-
+        $datenow = Carbon::parse(Now())->format('Y-m-d');
+        
         $employee = Employee::where('generated_id', $request->id_no)->first();
         if($employee){
-            $is_in_am = Attendance::where('employee_id', $employee->id)->where('date', Carbon::parse(Now())->format('Y-m-d'))->where('time_in_am', '<>', null)->first();
-            if(!$is_in_am){
-                if($lognow <= Carbon::parse($employee->time_in_am)->format('H:i:s')){
-                    $attendance = Attendance::create([
-                        'employee_id' => $employee->id,
-                        'date' => date('Y-m-d'),
-                        'time_in_am' => ($lognow > $employee->time_in_am) ? 0 : 1, 
-                        'status_am' => $logstatus,
-                    ]);
-                    toast($employee->fname.' '.$employee->lname.' timed in this morning.','success');
-                    return redirect()->back();
-                }else if($lognow >= Carbon::parse($employee->time_out_pm)->format('H:i:s')){
-                    toast('Business working hour is not available this time! Please contact the admin for more info.','info');
-                    return redirect()->back();
-                }else{
-                    toast('Employee too late to time in for working hours!','error');
-                    return redirect()->back();
-                } 
-            }else{
-                $is_out_am = Attendance::where('employee_id', $employee->id)->where('date', Carbon::parse(Now())->format('Y-m-d'))->where('time_out_am', null)->first();
-                if($is_out_am){
-                    if($lognow >= Carbon::parse($employee->time_out_am)->format('H:i:s')){
-                        $is_out_am->time_out_am = $lognow;
-                        $is_out_am->update();
-                        toast($employee->fname.' '.$employee->lname.' timed out this noon break.','success');
-                        return redirect()->back();
-                    }else{
-                        toast('Employee already timed in!','info');
+            if(date('A')=="AM"){
+                if($lognow <= Carbon::parse($employee->time_in_am)->format('H:i:s') || $lognow <= "09:00:00"){
+                    $is_in_am = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->where('time_in_am', '<>', null)->first();
+                    if(!$is_in_am){
+                        $attendance = Attendance::create([
+                            'employee_id' => $employee->id,
+                            'date' => date('Y-m-d'),
+                            'time_in_am' => $lognow, 
+                            'status_am' => ($lognow > $employee->time_in_am) ? 0 : 1,
+                        ]);
+                        toast($employee->fname.' '.$employee->lname.' timed in this morning.','success');
                         return redirect()->back();
                     }
-                }else{
-                    $is_in_pm = Attendance::where('employee_id', $employee->id)->where('date', Carbon::parse(Now())->format('Y-m-d'))->where('time_in_pm', null)->first();
-                    if($is_in_pm){
-                        if($lognow <= Carbon::parse($employee->time_in_pm)->format('H:i:s')){
-                            $is_in_pm->time_in_pm = $lognow;
-                            $is_in_pm->status_pm = ($lognow > $employee->time_in_pm) ? 0 : 1;
-                            $is_in_pm->update();
+                    toast('Employee already timed in this morning!','info');
+                    return redirect()->back();
+                    
+                }else if($lognow >= Carbon::parse($employee->time_out_am)->format('H:i:s') || $lognow >= "11:00:00"){
+                    $is_out_am = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->where('time_out_am', null)->first();
+                    if($is_out_am){
+                        if($is_out_am->time_in_am == null){
+                            $int_am = 0;
+                        }else{
+                            if($employee->time_in_am > $is_out_am->time_in_am){
+                                $time_in_am = $employee->time_in_am;
+                            }else{
+                                $time_in_am = $is_out_am->time_in_am;
+                            }
+                
+                            if($employee->time_out_am < $is_out_am->time_out_am){
+                                $time_out_am = $employee->time_out_am;
+                            }else{
+                                $time_out_am = $lognow;
+                            }
+                            
+                            $time_in_am = new DateTime($time_in_am);
+                            $time_out_am = new DateTime($time_out_am);
+                            $interval_am = $time_in_am->diff($time_out_am);
+                            $hrs_am = $interval_am->format('%h');
+                            $mins_am = $interval_am->format('%i');
+                            $mins_am = $mins_am/60;
+                            $int_am = $hrs_am + $mins_am;
+                            if($int_am > 4){
+                                $int_am = $int_am - 1;
+                            }
+                        }
+                        if($is_out_am->time_in_pm == null){
+                            $int_pm = 0;
+                        }
+            
+                        $sum_am_pm = $int_pm + $int_am;
 
-                            toast($employee->fname.' '.$employee->lname.' timed in this afternoon.','success');
+                        $is_out_am->num_hr = $sum_am_pm;
+                        $is_out_am->time_out_am = $lognow;
+                        $is_out_am->update();
+                        toast($employee->fname.' '.$employee->lname.' timed out for noon break.','success');
+                        return redirect()->back();
+                    }
+                    toast('Employee already timed out this morning!','info');
+                    return redirect()->back();
+                }
+
+            }else if(date('A')=="PM"){
+                if($lognow > Carbon::parse($employee->time_out_am)->format('H:i:s') && $lognow < "12:30:00"){
+                    $is_out_am = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->orWhere('time_out_am', null)->first();
+                    if($is_out_am){
+                        $is_out_am->time_out_am = $lognow;
+                        $is_out_am->update();
+                        toast($employee->fname.' '.$employee->lname.' timed out for noon break.','success');
+                        return redirect()->back();
+                    }
+                    toast('Employee already timed out this morning!','info');
+                    return redirect()->back();
+                }
+                if($lognow <= Carbon::parse($employee->time_in_pm)->format('H:i:s') || $lognow <= "14:00:00"){
+                    $is_in_pm = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->orWhere('time_in_pm', null)->first();
+                    if($is_in_pm){
+                        $is_in_pm->time_in_pm = $lognow;
+                        $is_in_pm->status_pm = ($lognow > $employee->time_in_pm) ? 0 : 1;
+                        $is_in_pm->update();
+
+                        toast($employee->fname.' '.$employee->lname.' timed in this afternoon.','success');
+                        return redirect()->back();
+                    }else{
+                        $is_in_am = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->where('time_in_am', '<>', null)->first();
+                        if(!$is_in_am){
+                            $attendance = Attendance::create([
+                                'employee_id' => $employee->id,
+                                'date' => date('Y-m-d'),
+                                'time_in_pm' => $lognow, 
+                                'status_pm' => ($lognow > $employee->time_in_pm) ? 0 : 1,
+                            ]);
+                            toast($employee->fname.' '.$employee->lname.' timed in this afternoon for half-day work.','success');
                             return redirect()->back();
                         }else{
                             toast('Employee already timed in this afternoon!','info');
                             return redirect()->back();
                         }
-                    }else{
-                        $is_out_pm = Attendance::where('employee_id', $employee->id)->where('date', Carbon::parse(Now())->format('Y-m-d'))->where('time_out_pm', null)->first();
-                        if($is_out_pm){
-                            if($lognow >= Carbon::parse($employee->time_out_pm)->format('H:i:s')){
+                    }
+                }else if($lognow >= Carbon::parse($employee->time_out_pm)->format('H:i:s') || $lognow <= "20:00:00"){
+                    $is_out_pm = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->orWhere('time_out_pm', null)->first();
+                    if($is_out_pm){
 
-                                if($employee->time_in_am > $is_out_pm->time_in_am){
-                                    $time_in_am = $employee->time_in_am;
-                                }else{
-                                    $time_in_am = $is_out_pm->time_in_am;
-                                }
-                    
-                                if($employee->time_out_am < $is_out_pm->time_out_am){
-                                    $time_out_am = $employee->time_out_am;
-                                }else{
-                                    $time_out_am = $is_out_pm->time_out_am;
-                                }
-                    
-                                $time_in_am = new DateTime($time_in_am);
-                                $time_out_am = new DateTime($time_out_am);
-                                $interval_am = $time_in_am->diff($time_out_am);
-                                $hrs_am = $interval_am->format('%h');
-                                $mins_am = $interval_am->format('%i');
-                                $mins_am = $mins_am/60;
-                                $int_am = $hrs_am + $mins_am;
-                                if($int_am > 4){
-                                    $int_am = $int_am - 1;
-                                }
-                    
-                                if($employee->time_in_pm > $is_out_pm->time_in_pm){
-                                    $time_in_pm = $employee->time_in_pm;
-                                }else{
-                                    $time_in_pm = $is_out_pm->time_in_pm;
-                                }
-                    
-                                if($employee->time_out_pm < $lognow){
-                                    $time_out_pm = $employee->time_out_pm;
-                                }else{
-                                    $time_out_pm = $lognow;
-                                }
-                    
-                                $time_in_pm = new DateTime($time_in_pm);
-                                $time_out_pm = new DateTime($time_out_pm);
-                                $interval_pm = $time_in_pm->diff($time_out_pm);
-                    
-                                $hrs_pm = $interval_pm->format('%h');
-                                $mins_pm = $interval_pm->format('%i');
-                                $mins_pm = $mins_pm/60;
-                                $int_pm = $hrs_pm + $mins_pm;
-                                if($int_pm > 4){
-                                    $int_pm = $int_pm - 1;
-                                }
-                    
-                                $sum_am_pm = $int_pm + $int_am;
-                    
-                                $is_out_pm->time_out_pm = $lognow;
-                                $is_out_pm->num_hr = $sum_am_pm;
-                                $is_out_pm->update();
-    
-                                toast($employee->fname.' '.$employee->lname.' timed out this afternoon.','success');
-                                return redirect()->back();
-                            }else{
-                                toast('Employee already timed out this afternoon!','info');
-                                return redirect()->back();
-                            }
+                        if($is_out_pm->time_in_am == null && $is_out_pm->time_out_am == null){
+                            $int_am = 0;
                         }else{
-                            toast('Employee already timed out this afternoon! Try again tommorow, Dont be late.','info');
+                            if($employee->time_in_am > $is_out_pm->time_in_am){
+                                $time_in_am = $employee->time_in_am;
+                            }else{
+                                $time_in_am = $is_out_pm->time_in_am;
+                            }
+                
+                            if($employee->time_out_am < $is_out_pm->time_out_am){
+                                $time_out_am = $employee->time_out_am;
+                            }else{
+                                $time_out_am = $is_out_pm->time_out_am;
+                            }
+                            
+                            $time_in_am = new DateTime($time_in_am);
+                            $time_out_am = new DateTime($time_out_am);
+                            $interval_am = $time_in_am->diff($time_out_am);
+                            $hrs_am = $interval_am->format('%h');
+                            $mins_am = $interval_am->format('%i');
+                            $mins_am = $mins_am/60;
+                            $int_am = $hrs_am + $mins_am;
+                            if($int_am > 4){
+                                $int_am = $int_am - 1;
+                            }
+                        }
+                        if($is_out_pm->time_in_pm == null){
+                            $int_pm = 0;
+                        }else{
+                            if($employee->time_in_pm > $is_out_pm->time_in_pm){
+                                $time_in_pm = $employee->time_in_pm;
+                            }else{
+                                $time_in_pm = $is_out_pm->time_in_pm;
+                            }
+                
+                            if($employee->time_out_pm < $lognow){
+                                $time_out_pm = $employee->time_out_pm;
+                            }else{
+                                $time_out_pm = $lognow;
+                            }
+                
+                            $time_in_pm = new DateTime($time_in_pm);
+                            $time_out_pm = new DateTime($time_out_pm);
+                            $interval_pm = $time_in_pm->diff($time_out_pm);
+                
+                            $hrs_pm = $interval_pm->format('%h');
+                            $mins_pm = $interval_pm->format('%i');
+                            $mins_pm = $mins_pm/60;
+                            $int_pm = $hrs_pm + $mins_pm;
+                            if($int_pm > 4){
+                                $int_pm = $int_pm - 1;
+                            }
+                        }
+            
+                        $sum_am_pm = $int_pm + $int_am;
+            
+                        $is_out_pm->time_out_pm = $lognow;
+                        $is_out_pm->num_hr = $sum_am_pm;
+                        $is_out_pm->update();
+
+                        toast($employee->fname.' '.$employee->lname.' timed out this afternoon.','success');
+                        return redirect()->back();
+                    }
+                    toast('Employee already timed out this afternoon! Try again tommorow, Dont be late.','info');
+                    return redirect()->back();
+                }
+                toast('Business working hour is not available this time! Please contact the admin for more info.','info');
+                return redirect()->back();
+            }
+        }
+        toast('Employee ID not found!','error');
+        return redirect()->back();
+    }
+
+    public function storeUsingQr($emp_id){
+
+        date_default_timezone_set("Asia/Manila");
+        $lognow = "11:30:00";
+        $datenow = Carbon::parse(Now())->format('Y-m-d');
+        
+        $employee = Employee::where('generated_id', $emp_id)->first();
+        if($employee){
+            if(date('A')=="AM"){
+                if($lognow <= Carbon::parse($employee->time_in_am)->format('H:i:s') || $lognow <= "09:00:00"){
+                    $is_in_am = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->where('time_in_am', '<>', null)->first();
+                    if(!$is_in_am){
+                        $attendance = Attendance::create([
+                            'employee_id' => $employee->id,
+                            'date' => date('Y-m-d'),
+                            'time_in_am' => $lognow, 
+                            'status_am' => ($lognow > $employee->time_in_am) ? 0 : 1,
+                        ]);
+                        toast($employee->fname.' '.$employee->lname.' timed in this morning.','success');
+                        return redirect()->back();
+                    }
+                    toast('Employee already timed in this morning!','info');
+                    return redirect()->back();
+                    
+                }else if($lognow >= Carbon::parse($employee->time_out_am)->format('H:i:s') || $lognow >= "11:00:00"){
+                    $is_out_am = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->where('time_out_am', null)->first();
+                    if($is_out_am){
+                        if($is_out_am->time_in_am == null){
+                            $int_am = 0;
+                        }else{
+                            if($employee->time_in_am > $is_out_am->time_in_am){
+                                $time_in_am = $employee->time_in_am;
+                            }else{
+                                $time_in_am = $is_out_am->time_in_am;
+                            }
+                
+                            if($employee->time_out_am < $is_out_am->time_out_am){
+                                $time_out_am = $employee->time_out_am;
+                            }else{
+                                $time_out_am = $lognow;
+                            }
+                            
+                            $time_in_am = new DateTime($time_in_am);
+                            $time_out_am = new DateTime($time_out_am);
+                            $interval_am = $time_in_am->diff($time_out_am);
+                            $hrs_am = $interval_am->format('%h');
+                            $mins_am = $interval_am->format('%i');
+                            $mins_am = $mins_am/60;
+                            $int_am = $hrs_am + $mins_am;
+                            if($int_am > 4){
+                                $int_am = $int_am - 1;
+                            }
+                        }
+                        if($is_out_am->time_in_pm == null){
+                            $int_pm = 0;
+                        }
+            
+                        $sum_am_pm = $int_pm + $int_am;
+
+                        $is_out_am->num_hr = $sum_am_pm;
+                        $is_out_am->time_out_am = $lognow;
+                        $is_out_am->update();
+                        toast($employee->fname.' '.$employee->lname.' timed out for noon break.','success');
+                        return redirect()->back();
+                    }
+                    toast('Employee already timed out this morning!','info');
+                    return redirect()->back();
+                }
+
+            }else if(date('A')=="PM"){
+                if($lognow > Carbon::parse($employee->time_out_am)->format('H:i:s') && $lognow < "12:30:00"){
+                    $is_out_am = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->orWhere('time_out_am', null)->first();
+                    if($is_out_am){
+                        $is_out_am->time_out_am = $lognow;
+                        $is_out_am->update();
+                        toast($employee->fname.' '.$employee->lname.' timed out for noon break.','success');
+                        return redirect()->back();
+                    }
+                    toast('Employee already timed out this morning!','info');
+                    return redirect()->back();
+                }
+                if($lognow <= Carbon::parse($employee->time_in_pm)->format('H:i:s') || $lognow <= "14:00:00"){
+                    $is_in_pm = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->orWhere('time_in_pm', null)->first();
+                    if($is_in_pm){
+                        $is_in_pm->time_in_pm = $lognow;
+                        $is_in_pm->status_pm = ($lognow > $employee->time_in_pm) ? 0 : 1;
+                        $is_in_pm->update();
+
+                        toast($employee->fname.' '.$employee->lname.' timed in this afternoon.','success');
+                        return redirect()->back();
+                    }else{
+                        $is_in_am = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->where('time_in_am', '<>', null)->first();
+                        if(!$is_in_am){
+                            $attendance = Attendance::create([
+                                'employee_id' => $employee->id,
+                                'date' => date('Y-m-d'),
+                                'time_in_pm' => $lognow, 
+                                'status_pm' => ($lognow > $employee->time_in_pm) ? 0 : 1,
+                            ]);
+                            toast($employee->fname.' '.$employee->lname.' timed in this afternoon for half-day work.','success');
+                            return redirect()->back();
+                        }else{
+                            toast('Employee already timed in this afternoon!','info');
                             return redirect()->back();
                         }
                     }
+                }else if($lognow >= Carbon::parse($employee->time_out_pm)->format('H:i:s') || $lognow <= "20:00:00"){
+                    $is_out_pm = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->orWhere('time_out_pm', null)->first();
+                    if($is_out_pm){
+
+                        if($is_out_pm->time_in_am == null){
+                            $int_am = 0;
+                        }else{
+                            if($employee->time_in_am > $is_out_pm->time_in_am){
+                                $time_in_am = $employee->time_in_am;
+                            }else{
+                                $time_in_am = $is_out_pm->time_in_am;
+                            }
+                
+                            if($employee->time_out_am < $is_out_pm->time_out_am){
+                                $time_out_am = $employee->time_out_am;
+                            }else{
+                                $time_out_am = $is_out_pm->time_out_am;
+                            }
+                            
+                            $time_in_am = new DateTime($time_in_am);
+                            $time_out_am = new DateTime($time_out_am);
+                            $interval_am = $time_in_am->diff($time_out_am);
+                            $hrs_am = $interval_am->format('%h');
+                            $mins_am = $interval_am->format('%i');
+                            $mins_am = $mins_am/60;
+                            $int_am = $hrs_am + $mins_am;
+                            if($int_am > 4){
+                                $int_am = $int_am - 1;
+                            }
+                        }
+                        if($is_out_pm->time_in_pm == null){
+                            $int_pm = 0;
+                        }else{
+                            if($employee->time_in_pm > $is_out_pm->time_in_pm){
+                                $time_in_pm = $employee->time_in_pm;
+                            }else{
+                                $time_in_pm = $is_out_pm->time_in_pm;
+                            }
+                
+                            if($employee->time_out_pm < $lognow){
+                                $time_out_pm = $employee->time_out_pm;
+                            }else{
+                                $time_out_pm = $lognow;
+                            }
+                
+                            $time_in_pm = new DateTime($time_in_pm);
+                            $time_out_pm = new DateTime($time_out_pm);
+                            $interval_pm = $time_in_pm->diff($time_out_pm);
+                
+                            $hrs_pm = $interval_pm->format('%h');
+                            $mins_pm = $interval_pm->format('%i');
+                            $mins_pm = $mins_pm/60;
+                            $int_pm = $hrs_pm + $mins_pm;
+                            if($int_pm > 4){
+                                $int_pm = $int_pm - 1;
+                            }
+                        }
+            
+                        $sum_am_pm = $int_pm + $int_am;
+            
+                        $is_out_pm->time_out_pm = $lognow;
+                        $is_out_pm->num_hr = $sum_am_pm;
+                        $is_out_pm->update();
+
+                        toast($employee->fname.' '.$employee->lname.' timed out this afternoon.','success');
+                        return redirect()->back();
+                    }
+                    toast('Employee already timed out this afternoon! Try again tommorow, Dont be late.','info');
+                    return redirect()->back();
                 }
+                toast('Business working hour is not available this time! Please contact the admin for more info.','info');
+                return redirect()->back();
             }
         }
         toast('Employee ID not found!','error');

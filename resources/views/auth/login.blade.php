@@ -1,5 +1,7 @@
 @extends('layouts.auth')
-
+@section('title')
+Login | Information Management System for HR
+@endsection
 @section('content')
 <div class="logo2">
     <img src="{{asset('img/waterdistrict_logo.png')}}" class="mx-auto" alt="" srcset="">
