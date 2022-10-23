@@ -55,7 +55,7 @@ class OvertimeController extends Controller
         $overtime->date_overtime = $date;
         $overtime->hours = $hours;
         $overtime->rate = $rate;
-        $employee->update();
+        $overtime->update();
         toast('Employee overtime successfully updated!','info');
         return redirect()->back();
     }

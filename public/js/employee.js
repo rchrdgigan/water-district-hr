@@ -88,8 +88,14 @@ $(document).on("click", ".edit-dialog", function () {
     $('.modal__content #rate_per_day').val(rate_per_day);
 });
 
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+    width : 190,
+    height : 190
+});
+
 $(document).on("click", ".view-dialog", function () {
     var id = $(this).data('id');
+    var gen_id = $(this).data('gen_id');
     var fname = $(this).data('fname');
     var mname = $(this).data('mname');
     var lname = $(this).data('lname');
@@ -129,6 +135,16 @@ $(document).on("click", ".view-dialog", function () {
     $('.modal__content #rate_per_day').val(rate_per_day);
     $('#linkImage').attr('href',image);
     $('#image').attr('src',image);
+    
+    qrcode.makeCode(""+gen_id);
+    const elem = document.querySelector("#qrcode");
+    html2canvas(elem).then(function (canvas) {
+        let cvs = document.querySelector("canvas");
+        let btn = document.querySelector("#downloadbtn");
+        btn.href = cvs.toDataURL("image/jpeg");
+        btn.download = "qrdowloaded.jpeg";
+    });
+
 });
 
 $(document).on("click", ".delete-dialog", function () {

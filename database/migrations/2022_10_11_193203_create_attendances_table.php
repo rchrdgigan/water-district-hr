@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('status_pm')->nullable();
             $table->time('time_out_pm')->nullable();
             $table->integer('num_hr')->nullable();
+            $table->string('status')->nullable();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();
         });

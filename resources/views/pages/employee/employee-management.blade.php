@@ -83,6 +83,7 @@ Employee
                         <div class="flex">
                             <a href="javascript:;" data-toggle="modal" data-target="#view"
                                 data-id="{{$data->id}}" 
+                                data-gen_id="{{$data->generated_id}}" 
                                 data-fname="{{$data->fname}}" 
                                 data-mname="{{$data->mname}}" 
                                 data-lname="{{$data->lname}}"
@@ -187,5 +188,7 @@ Employee
 
 @endsection
 @push('custom-scripts')
+<script type="text/javascript" src="{{asset('js/davidshimjs/qrcode.js')}}"></script>
 <script src="{{asset('js/employee.js')}}"></script>
+<script src="{{asset('js/html2canvas.js')}}"></script>
 @endpush

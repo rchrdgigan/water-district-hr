@@ -284,7 +284,8 @@ class AttendanceController extends Controller
                         }
             
                         $sum_am_pm = $int_pm + $int_am;
-
+                        
+                        $is_out_am->status = (!isset($is_out_pm->time_out_pm)==null && !isset($is_out_pm->time_out_am)==null) ? ($is_out_pm->status_am == true && $is_out_pm->status_pm == true) ? 'Ontime' : 'Late' : 'Half-day';
                         $is_out_am->num_hr = $sum_am_pm;
                         $is_out_am->time_out_am = $lognow;
                         $is_out_am->update();
@@ -300,6 +301,7 @@ class AttendanceController extends Controller
                     $is_out_am = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->orWhere('time_out_am', null)->first();
                     if($is_out_am){
                         $is_out_am->time_out_am = $lognow;
+                        $is_out_am->status = (!isset($is_out_pm->time_out_pm)==null && !isset($is_out_pm->time_out_am)==null) ? ($is_out_pm->status_am == true && $is_out_pm->status_pm == true) ? 'Ontime' : 'Late' : 'Half-day';
                         $is_out_am->update();
                         toast($employee->fname.' '.$employee->lname.' timed out for noon break.','success');
                         return redirect()->back();
@@ -391,7 +393,8 @@ class AttendanceController extends Controller
                         }
             
                         $sum_am_pm = $int_pm + $int_am;
-            
+
+                        $is_out_pm->status = (!isset($is_out_pm->time_out_pm)==null && !isset($is_out_pm->time_out_am)==null) ? ($is_out_pm->status_am == true && $is_out_pm->status_pm == true) ? 'Ontime' : 'Late' : 'Half-day';
                         $is_out_pm->time_out_pm = $lognow;
                         $is_out_pm->num_hr = $sum_am_pm;
                         $is_out_pm->update();
@@ -413,7 +416,7 @@ class AttendanceController extends Controller
     public function storeUsingQr($emp_id){
 
         date_default_timezone_set("Asia/Manila");
-        $lognow = "11:30:00";
+        $lognow = "18:00:00";
         $datenow = Carbon::parse(Now())->format('Y-m-d');
         
         $employee = Employee::where('generated_id', $emp_id)->first();
@@ -468,7 +471,8 @@ class AttendanceController extends Controller
                         }
             
                         $sum_am_pm = $int_pm + $int_am;
-
+                        
+                        $is_out_pm->status = (!isset($is_out_pm->time_out_pm)==null && !isset($is_out_pm->time_out_am)==null) ? ($is_out_pm->status_am == true && $is_out_pm->status_pm == true) ? 'Ontime' : 'Late' : 'Half-day';
                         $is_out_am->num_hr = $sum_am_pm;
                         $is_out_am->time_out_am = $lognow;
                         $is_out_am->update();
@@ -484,7 +488,9 @@ class AttendanceController extends Controller
                     $is_out_am = Attendance::where('employee_id', $employee->id)->where('date', $datenow)->orWhere('time_out_am', null)->first();
                     if($is_out_am){
                         $is_out_am->time_out_am = $lognow;
+                        $is_out_am->status = (!isset($is_out_pm->time_out_pm)==null && !isset($is_out_pm->time_out_am)==null) ? ($is_out_pm->status_am == true && $is_out_pm->status_pm == true) ? 'Ontime' : 'Late' : 'Half-day';
                         $is_out_am->update();
+                        
                         toast($employee->fname.' '.$employee->lname.' timed out for noon break.','success');
                         return redirect()->back();
                     }
@@ -575,7 +581,8 @@ class AttendanceController extends Controller
                         }
             
                         $sum_am_pm = $int_pm + $int_am;
-            
+
+                        $is_out_pm->status = (!isset($is_out_pm->time_out_pm)==null && !isset($is_out_pm->time_out_am)==null) ? ($is_out_pm->status_am == true && $is_out_pm->status_pm == true) ? 'Ontime' : 'Late' : 'Half-day';
                         $is_out_pm->time_out_pm = $lognow;
                         $is_out_pm->num_hr = $sum_am_pm;
                         $is_out_pm->update();
@@ -589,6 +596,8 @@ class AttendanceController extends Controller
                 toast('Business working hour is not available this time! Please contact the admin for more info.','info');
                 return redirect()->back();
             }
+            toast("Employee not allowed you're too late time in! Please ask or contact admin.","error");
+            return redirect()->back();
         }
         toast('Employee ID not found!','error');
         return redirect()->back();

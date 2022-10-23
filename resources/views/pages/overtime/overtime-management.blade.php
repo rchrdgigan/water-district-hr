@@ -57,7 +57,7 @@ Overtime
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="text-xs">{{$data->hours}}</p>
+                            <p class="text-xs">{{ number_format((float)$data->hours, 2, '.', '')}}</p>
                         </div>
                     </td>
                     <td class="w-40">
@@ -69,13 +69,9 @@ Overtime
                         <div class="flex">
                             <a href="javascript:;" data-toggle="modal" data-target="#edit"
                                 data-id="{{$data->id}}"
-                                data-generated_id="{{$data->employee->generated_id}}"
-                                data-gen_emp="{{$data->employee->generated_id.' - '.$data->employee->fname.' '.$data->employee->lname}}"
-                                data-date="{{Carbon\Carbon::parse($data->date)->format('Y-m-d')}}"
-                                data-time_in_am="{{$data->time_in_am}}"
-                                data-time_out_am="{{$data->time_out_am}}"
-                                data-time_in_pm="{{$data->time_in_pm}}"
-                                data-time_out_pm="{{$data->time_out_pm}}"
+                                data-date="{{Carbon\Carbon::parse($data->date_overtime)->format('Y-m-d')}}"
+                                data-decimal_hours="{{$data->hours}}"
+                                data-rate="{{$data->rate}}"
                                 class="edit-dialog custom__button w-35 text-white bg-theme-9 hover:bg-blue-400 xl:mr-3 flex"><i data-feather="edit"></i></a>
 
                             <a href="javascript:;" data-toggle="modal" data-target="#delete"
@@ -157,10 +153,11 @@ Overtime
                 <h2 class="font-medium text-base mr-auto">Update Overtime</h2> 
             </div>
             <div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
-                <div class="col-span-12 sm:col-span-12"> <label>Date</label> <input type="date" name="date_overtime"  class="input w-full border mt-2 flex-1" placeholder="Input Date"> </div>
-                <div class="col-span-12 sm:col-span-6"> <label>No. Hours</label> <input type="text" name="hours"  class="input w-full border mt-2 flex-1" placeholder="Input No. of Hours"> </div>
-                <div class="col-span-12 sm:col-span-6"> <label>No. Mins</label> <input type="text" name="mins" class="input w-full border mt-2 flex-1" placeholder="Input No. Mins"> </div>
-                <div class="col-span-12 sm:col-span-12"> <label>Rate</label> <input type="text"  name="rate" class="input w-full border mt-2 flex-1" placeholder="Input Rate Per Hour"> </div>
+                <input type="hidden" id="id" name="id"/>
+                <div class="col-span-12 sm:col-span-12"> <label>Date</label> <input type="date" name="date_overtime" id="date_overtime" class="input w-full border mt-2 flex-1" placeholder="Input Date"> </div>
+                <div class="col-span-12 sm:col-span-6"> <label>No. Hours</label> <input type="text" name="hours" id="hours" class="input w-full border mt-2 flex-1" placeholder="Input No. of Hours"> </div>
+                <div class="col-span-12 sm:col-span-6"> <label>No. Mins</label> <input type="text" name="mins" id="mins" class="input w-full border mt-2 flex-1" placeholder="Input No. Mins"> </div>
+                <div class="col-span-12 sm:col-span-12"> <label>Rate</label> <input type="text"  name="rate" id="rate" class="input w-full border mt-2 flex-1" placeholder="Input Rate Per Hour"> </div>
             </div>
             <div class="px-5 py-3 text-right border-t border-gray-200 dark:border-dark-5"> 
                 <button type="button" data-dismiss="modal" class="button w-20 border text-gray-700 dark:border-dark-5 dark:text-gray-300 mr-1">Cancel</button> 
@@ -189,16 +186,17 @@ Overtime
 <script>
 $(document).on("click", ".edit-dialog", function () {
     var id = $(this).data('id');
-    var date = $(this).data('date_overtime');
-    var time_in_am = $(this).data('hours');
-    var time_out_am = $(this).data('mins');
-    var time_in_pm = $(this).data('rate');
-
+    var date = $(this).data('date');
+    var decimal_hours = $(this).data('decimal_hours');
+    var rate = $(this).data('rate');
+    n = Math.abs(decimal_hours);
+    var decimal = n - Math.floor(n);
+    var mins = decimal * 60;
     $('.modal__content #id').val(id);
-    $('.modal__content #date_overtime').val(generated_id);
-    $('.modal__content #hours').val(date);
-    $('.modal__content #mins').val(time_in_am);
-    $('.modal__content #rate').val(time_out_am);
+    $('.modal__content #date_overtime').val(date);
+    $('.modal__content #hours').val(Math.floor(n));
+    $('.modal__content #mins').val(Math.round(mins));
+    $('.modal__content #rate').val(rate);
 });
 
 $(document).on("click", ".delete-dialog", function () {

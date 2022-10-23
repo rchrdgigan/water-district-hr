@@ -7,6 +7,7 @@
         </div>
         <div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
             <div class="col-span-12 sm:col-span-12 mx-auto mb-2"><a id="linkImage" target="_blank"><img id="image" width="200" class="mr-3" alt="" srcset=""></a></div>
+           
             <div class="col-span-12 sm:col-span-4"> <label>First Name</label> <input type="text" readonly name="fname" id="fname" class="input w-full border mt-2 flex-1" placeholder="Input First Name"> </div>
             <div class="col-span-12 sm:col-span-4"> <label>Middle Name</label> <input type="text" readonly name="mname" id="mname" class="input w-full border mt-2 flex-1" placeholder="Input Middle Name"> </div>
             <div class="col-span-12 sm:col-span-4"> <label>Lastname</label> <input type="text" readonly name="lname" id="lname" class="input w-full border mt-2 flex-1" placeholder="Input Last Name"> </div>
@@ -23,6 +24,10 @@
             <div class="col-span-12 sm:col-span-4"> <label>Pag-IBIG</label> <input type="number" readonly name="pagibig" id="pagibig" class="input w-full border mt-2 flex-1" placeholder="Input Pag-IBIG Amount"> </div>
             <div class="col-span-12 sm:col-span-4"> <label>Position</label> <input type="text" readonly name="position" id="position" class="input w-full border mt-2 flex-1" placeholder="Input Position"> </div>
             <div class="col-span-12 sm:col-span-4"> <label>Rate Per Day</label> <input type="number" readonly name="rate_per_day" id="rate_per_day" class="input w-full border mt-2 flex-1" placeholder="Input Rate Per Day"> </div>
+            <div class="col-span-12 sm:col-span-4 mx-auto">
+                <div id="qrcode"></div>
+                <a type="button" id="downloadbtn" class="button w-full bg-theme-1 text-white mt-2">Download QR</a>
+            </div>
         </div>
         <div class="px-5 py-3 text-right border-t border-gray-200 dark:border-dark-5">
             <button type="button" data-dismiss="modal" class="button w-20 border text-gray-700 dark:border-dark-5 dark:text-gray-300 mr-1">Close</button>
