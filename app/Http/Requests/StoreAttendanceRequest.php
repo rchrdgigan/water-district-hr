@@ -26,10 +26,10 @@ class StoreAttendanceRequest extends FormRequest
         return [
             'employee_id' => 'required',
             'date' => 'required',
-            'time_in_am' => 'required',
-            'time_out_am' => 'required',
-            'time_in_pm' => 'required',
-            'time_out_pm' => 'required',
+            'time_in_am' => 'nullable',
+            'time_out_am' => 'nullable',
+            'time_in_pm' => 'nullable',
+            'time_out_pm' => 'nullable',
         ];
     }
 }

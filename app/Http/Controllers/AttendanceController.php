@@ -61,70 +61,93 @@ class AttendanceController extends Controller
         if($employee){
             $is_date_exist = Attendance::where('employee_id', $employee->id)->where('date', $validated['date'])->first();
             if(!$is_date_exist){
-                $logstatusam = ($validated['time_in_am'] > $employee->time_in_am) ? 0 : 1;
-                $logstatuspm = ($validated['time_in_pm'] > $employee->time_in_pm) ? 0 : 1;
-
-                if($employee->time_in_am > $validated['time_in_am']){
-                    $time_in_am = $employee->time_in_am;
+                if(isset($validated['time_in_am'])){
+                    $logstatusam = ($validated['time_in_am'] > $employee->time_in_am) ? 0 : 1;
                 }else{
-                    $time_in_am = $validated['time_in_am'];
+                    $logstatusam = 0;
                 }
 
-                if($employee->time_out_am < $validated['time_out_am']){
-                    $time_out_am = $employee->time_out_am;
+                if(isset($validated['time_in_pm'])){
+                    $logstatuspm = ($validated['time_in_pm'] > $employee->time_in_pm) ? 0 : 1;
                 }else{
-                    $time_out_am = $validated['time_out_am'];
+                    $logstatuspm = 0;
                 }
 
-                $time_in_am = new DateTime($time_in_am);
-                $time_out_am = new DateTime($time_out_am);
-                $interval_am = $time_in_am->diff($time_out_am);
-                $hrs_am = $interval_am->format('%h');
-                $mins_am = $interval_am->format('%i');
-                $mins_am = $mins_am/60;
-                $int_am = $hrs_am + $mins_am;
-                if($int_am > 4){
-                    $int_am = $int_am - 1;
-                }
-
-                if($employee->time_in_pm > $validated['time_in_pm']){
-                    $time_in_pm = $employee->time_in_pm;
+                if(isset($validated['time_in_am']) && isset($validated['time_out_am'])){
+                    if($employee->time_in_am > $validated['time_in_am']){
+                        $time_in_am = $employee->time_in_am;
+                    }else{
+                        $time_in_am = $validated['time_in_am'];
+                    }
+    
+                    if($employee->time_out_am < $validated['time_out_am']){
+                        $time_out_am = $employee->time_out_am;
+                    }else{
+                        $time_out_am = $validated['time_out_am'];
+                    }
+    
+                    $time_in_am = new DateTime($time_in_am);
+                    $time_out_am = new DateTime($time_out_am);
+                    $interval_am = $time_in_am->diff($time_out_am);
+                    $hrs_am = $interval_am->format('%h');
+                    $mins_am = $interval_am->format('%i');
+                    $mins_am = $mins_am/60;
+                    $int_am = $hrs_am + $mins_am;
+                    if($int_am > 4){
+                        $int_am = $int_am - 1;
+                    }
                 }else{
-                    $time_in_pm = $validated['time_in_pm'];
+                    $int_am = 0;
                 }
+               
+                if(isset($validated['time_in_am']) && isset($validated['time_out_am'])){
+                    if($employee->time_in_pm > $validated['time_in_pm']){
+                        $time_in_pm = $employee->time_in_pm;
+                    }else{
+                        $time_in_pm = $validated['time_in_pm'];
+                    }
 
-                if($employee->time_out_pm < $validated['time_out_pm']){
-                    $time_out_pm = $employee->time_out_pm;
+                    if($employee->time_out_pm < $validated['time_out_pm']){
+                        $time_out_pm = $employee->time_out_pm;
+                    }else{
+                        $time_out_pm = $validated['time_out_pm'];
+                    }
+
+                    $time_in_pm = new DateTime($time_in_pm);
+                    $time_out_pm = new DateTime($time_out_pm);
+                    $interval_pm = $time_in_pm->diff($time_out_pm);
+
+                    $hrs_pm = $interval_pm->format('%h');
+                    $mins_pm = $interval_pm->format('%i');
+                    $mins_pm = $mins_pm/60;
+                    $int_pm = $hrs_pm + $mins_pm;
+                    if($int_pm > 4){
+                        $int_pm = $int_pm - 1;
+                    }
                 }else{
-                    $time_out_pm = $validated['time_out_pm'];
+                    $int_pm = 0;
                 }
-
-                $time_in_pm = new DateTime($time_in_pm);
-                $time_out_pm = new DateTime($time_out_pm);
-                $interval_pm = $time_in_pm->diff($time_out_pm);
-
-                $hrs_pm = $interval_pm->format('%h');
-                $mins_pm = $interval_pm->format('%i');
-                $mins_pm = $mins_pm/60;
-                $int_pm = $hrs_pm + $mins_pm;
-                if($int_pm > 4){
-                    $int_pm = $int_pm - 1;
-                }
-
                 $sum_am_pm = $int_pm + $int_am;
-
                 $attendance = Attendance::create([
                     'employee_id' => $employee->id,
                     'date' => $validated['date'],
-                    'time_in_am' => $validated['time_in_am'],
+                    'time_in_am' => $validated['time_in_am'] ?? null,
                     'status_am' => $logstatusam,
-                    'time_out_am' => $validated['time_out_am'],
-                    'time_in_pm' => $validated['time_in_pm'],
+                    'time_out_am' => $validated['time_out_am'] ?? null,
+                    'time_in_pm' => $validated['time_in_pm'] ?? null,
                     'status_pm' => $logstatuspm,
-                    'time_out_pm' => $validated['time_out_pm'],
+                    'time_out_pm' => $validated['time_out_pm'] ?? null,
                     'num_hr' => $sum_am_pm,
                 ]);
                 if($attendance){
+                    
+                    $is_out_status = Attendance::findOrFail($attendance->id);
+                    $status = (!isset($is_out_status->time_out_pm)==null && !isset($is_out_status->time_out_am)==null) ? 
+                    ($is_out_status->status_am == true && $is_out_status->status_pm == true) ? 
+                    'Ontime' : 'Late' : 'Half-day';
+                    $is_out_status->status = $status;
+                    $is_out_status->update();
+
                     toast('Employee Attendance has been saved!','success');
                     return redirect()->back();
                 }
@@ -143,67 +166,86 @@ class AttendanceController extends Controller
     {
         $employee = Employee::where('generated_id', $request->generated_id)->first();
         if($employee){
-            $logstatusam = ($request->time_in_am > $employee->time_in_am) ? 0 : 1;
-            $logstatuspm = ($request->time_in_pm > $employee->time_in_pm) ? 0 : 1;
-
-            if($employee->time_in_am > $request->time_in_am){
-                $time_in_am = $employee->time_in_am;
+            if(isset($request->time_in_am)){
+                $logstatusam = ($request->time_in_am > $employee->time_in_am) ? 0 : 1;
             }else{
-                $time_in_am = $request->time_in_am;
+                $logstatusam=0;
             }
 
-            if($employee->time_out_am < $request->time_out_am){
-                $time_out_am = $employee->time_out_am;
+            if(isset($request->time_in_pm)){
+                $logstatuspm = ($request->time_in_pm > $employee->time_in_pm) ? 0 : 1;
             }else{
-                $time_out_am = $request->time_out_am;
+                $logstatuspm=0;
             }
 
-            $time_in_am = new DateTime($time_in_am);
-            $time_out_am = new DateTime($time_out_am);
-            $interval_am = $time_in_am->diff($time_out_am);
-            $hrs_am = $interval_am->format('%h');
-            $mins_am = $interval_am->format('%i');
-            $mins_am = $mins_am/60;
-            $int_am = $hrs_am + $mins_am;
-            if($int_am > 4){
-                $int_am = $int_am - 1;
-            }
-
-            if($employee->time_in_pm > $request->time_in_pm){
-                $time_in_pm = $employee->time_in_pm;
+            if(isset($request->time_in_am) && isset($request->time_out_am)){
+                if($employee->time_in_am > $request->time_in_am){
+                    $time_in_am = $employee->time_in_am;
+                }else{
+                    $time_in_am = $request->time_in_am;
+                }
+                if($employee->time_out_am < $request->time_out_am){
+                    $time_out_am = $employee->time_out_am;
+                }else{
+                    $time_out_am = $request->time_out_am;
+                }
+    
+                $time_in_am = new DateTime($time_in_am);
+                $time_out_am = new DateTime($time_out_am);
+                $interval_am = $time_in_am->diff($time_out_am);
+                $hrs_am = $interval_am->format('%h');
+                $mins_am = $interval_am->format('%i');
+                $mins_am = $mins_am/60;
+                $int_am = $hrs_am + $mins_am;
+                if($int_am > 4){
+                    $int_am = $int_am - 1;
+                }
             }else{
-                $time_in_pm = $request->time_in_pm;
+                $int_am=0;
             }
 
-            if($employee->time_out_pm < $request->time_out_pm){
-                $time_out_pm = $employee->time_out_pm;
+            if(isset($request->time_in_pm) && isset($request->time_out_pm)){
+                if($employee->time_in_pm > $request->time_in_pm){
+                    $time_in_pm = $employee->time_in_pm;
+                }else{
+                    $time_in_pm = $request->time_in_pm;
+                }
+
+                if($employee->time_out_pm < $request->time_out_pm){
+                    $time_out_pm = $employee->time_out_pm;
+                }else{
+                    $time_out_pm = $request->time_out_pm;
+                }
+
+                $time_in_pm = new DateTime($time_in_pm);
+                $time_out_pm = new DateTime($time_out_pm);
+                $interval_pm = $time_in_pm->diff($time_out_pm);
+
+                $hrs_pm = $interval_pm->format('%h');
+                $mins_pm = $interval_pm->format('%i');
+                $mins_pm = $mins_pm/60;
+                $int_pm = $hrs_pm + $mins_pm;
+                if($int_pm > 4){
+                    $int_pm = $int_pm - 1;
+                }
             }else{
-                $time_out_pm = $request->time_out_pm;
+                $int_pm=0;
             }
-
-            $time_in_pm = new DateTime($time_in_pm);
-            $time_out_pm = new DateTime($time_out_pm);
-            $interval_pm = $time_in_pm->diff($time_out_pm);
-
-            $hrs_pm = $interval_pm->format('%h');
-            $mins_pm = $interval_pm->format('%i');
-            $mins_pm = $mins_pm/60;
-            $int_pm = $hrs_pm + $mins_pm;
-            if($int_pm > 4){
-                $int_pm = $int_pm - 1;
-            }
-
             $sum_am_pm = $int_pm + $int_am;
 
             $attendance = Attendance::findorFail($request->id);
             $attendance->date = $request->date;
-            $attendance->time_in_am = $request->time_in_am;
+            $attendance->time_in_am = $request->time_in_am ?? null;
             $attendance->status_am = $logstatusam;
-            $attendance->time_out_am = $request->time_out_am;
-            $attendance->time_in_pm = $request->time_in_pm;
+            $attendance->time_out_am = $request->time_out_am ?? null;
+            $attendance->time_in_pm = $request->time_in_pm ?? null;
             $attendance->status_pm = $logstatuspm;
-            $attendance->time_out_pm = $request->time_out_pm;
+            $attendance->time_out_pm = $request->time_out_pm ?? null;
             $attendance->num_hr = $sum_am_pm;
+            $status = (!isset($attendance->time_out_pm)==null && !isset($attendance->time_out_am)==null) ? 
+                    ($attendance->status_am == true && $attendance->status_pm == true) ? 
+                    'Ontime' : 'Late' : 'Half-day';
+            $attendance->status = $status;
             $attendance->update();
             
             if($attendance){
@@ -394,7 +436,9 @@ class AttendanceController extends Controller
             
                         $sum_am_pm = $int_pm + $int_am;
 
-                        $is_out_pm->status = (!isset($is_out_pm->time_out_pm)==null && !isset($is_out_pm->time_out_am)==null) ? ($is_out_pm->status_am == true && $is_out_pm->status_pm == true) ? 'Ontime' : 'Late' : 'Half-day';
+                        $is_out_pm->status = (!isset($is_out_pm->time_out_pm)==null && !isset($is_out_pm->time_out_am)==null) ? 
+                                            ($is_out_pm->status_am == true && $is_out_pm->status_pm == true) ? 
+                                            'Ontime' : 'Late' : 'Half-day';
                         $is_out_pm->time_out_pm = $lognow;
                         $is_out_pm->num_hr = $sum_am_pm;
                         $is_out_pm->update();

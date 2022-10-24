@@ -24,37 +24,14 @@ Login | Information Management System for HR
     </div>
     <div class="intro-x flex text-gray-700 dark:text-gray-600 text-xs sm:text-sm mt-4">
         <div class="flex items-center mr-auto">
-            <input type="checkbox" class="input border mr-2" id="remember-me">
-            <label class="cursor-pointer select-none" for="remember-me">Remember me</label>
+            <input type="checkbox"  name="remember" class="input border mr-2" id="remember" {{ old('remember') ? 'checked' : '' }}>
+            <label class="cursor-pointer select-none" for="remember">Remember me</label>
         </div>
-        <a href="">Forgot Password?</a>
+        <a href="{{ route('password.request') }}">Forgot Password?</a>
     </div>
     <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
         <button class="custom__button w-full xl:w-32 text-white custom__bg__theme xl:mr-3 align-top" type="submit">Login</button>
         <a href="{{url('/')}}" type="button" class="custom__button w-full xl:w-32 text-gray-700 border border-gray-300 dark:border-dark-5 dark:text-gray-300 mt-3 xl:mt-0 align-top">Back</a>
     </div>
-    {{-- <div class="row mb-3">
-        <div class="col-md-6 offset-md-4">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                <label class="form-check-label" for="remember">
-                    {{ __('Remember Me') }}
-                </label>
-            </div>
-        </div>
-    </div> --}}
-
-    {{-- <div class="row mb-0">
-        <div class="col-md-8 offset-md-4">
-            <button type="submit" class="btn btn-primary">
-                {{ __('Login') }}
-            </button>
-            @if (Route::has('password.request'))
-                <a class="btn btn-link" href="{{ route('password.request') }}">
-                    {{ __('Forgot Your Password?') }}
-                </a>
-            @endif
-        </div>
-    </div> --}}
 </form>
 @endsection

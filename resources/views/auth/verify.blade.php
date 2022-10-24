@@ -1,11 +1,13 @@
 @extends('layouts.app')
-
+@section('title')
+Password Confirmation | Information Management System for HR
+@endsection
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+            <div class="card border__radius">
+                <div class="card-header text-center">{{ __('Verify Your Email Address') }}</div>
 
                 <div class="card-body">
                     @if (session('resent'))

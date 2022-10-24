@@ -89,7 +89,13 @@ Attendance
                     </td>
                     <td class="w-40">
                         <div class="flex justify-center">
-                            <p class="text-xs {{(!isset($data->time_out_pm)==null && !isset($data->time_out_am)==null) ? ($data->status_am == true && $data->status_pm == true)? 'bg-green-500':'bg-red-500':'bg-gray-500'}} rounded-full p-1 text-white">{{(!isset($data->time_out_pm)==null && !isset($data->time_out_am)==null) ? ($data->status_am == true && $data->status_pm == true)? 'Ontime':'Late' : 'N/A'}}</p>
+                            @if($data->status == 'Ontime')
+                            <p class="text-xs bg-green-500 rounded-full p-1 text-white">Ontime</p>
+                            @elseif($data->status == 'Late')
+                            <p class="text-xs bg-red-500 rounded-full p-1 text-white">Late</p>
+                            @elseif($data->status == 'Half-day')
+                            <p class="text-xs bg-yellow-500 rounded-full p-1 text-white">Half-day</p>
+                            @endif
                         </div>
                     </td>
                     <td class="w-40">
@@ -177,10 +183,10 @@ Attendance
             <div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
                 <div class="col-span-12 sm:col-span-12"> <label>Employee ID</label> <input type="text" required name="employee_id" class="input w-full border mt-2 flex-1" placeholder="Input Employee ID"> </div>
                 <div class="col-span-12 sm:col-span-12"> <label>Date</label> <input type="date" name="date" required class="input w-full border mt-2 flex-1" value="{{Carbon\Carbon::parse(now())->format('Y-m-d')}}"> </div>
-                <div class="col-span-12 sm:col-span-6"> <label>Time-In AM</label> <input type="time" name="time_in_am" required class="input w-full border mt-2 flex-1" value="08:00:00"> </div>
-                <div class="col-span-12 sm:col-span-6"> <label>Time-Out AM</label> <input type="time" name="time_out_am" required class="input w-full border mt-2 flex-1" value="12:00:00"> </div>
-                <div class="col-span-12 sm:col-span-6"> <label>Time-In PM</label> <input type="time" name="time_in_pm" required class="input w-full border mt-2 flex-1" value="13:00:00"> </div>
-                <div class="col-span-12 sm:col-span-6"> <label>Time-Out PM</label> <input type="time" name="time_out_pm" required class="input w-full border mt-2 flex-1" value="17:00:00"> </div>
+                <div class="col-span-12 sm:col-span-6"> <label>Time-In AM</label> <input type="time" name="time_in_am" class="input w-full border mt-2 flex-1" value="08:00:00"> </div>
+                <div class="col-span-12 sm:col-span-6"> <label>Time-Out AM</label> <input type="time" name="time_out_am" class="input w-full border mt-2 flex-1" value="12:00:00"> </div>
+                <div class="col-span-12 sm:col-span-6"> <label>Time-In PM</label> <input type="time" name="time_in_pm" class="input w-full border mt-2 flex-1" value="13:00:00"> </div>
+                <div class="col-span-12 sm:col-span-6"> <label>Time-Out PM</label> <input type="time" name="time_out_pm" class="input w-full border mt-2 flex-1" value="17:00:00"> </div>
             </div>
             <div class="px-5 py-3 text-right border-t border-gray-200 dark:border-dark-5"> 
                 <button type="button" data-dismiss="modal" class="button w-20 border text-gray-700 dark:border-dark-5 dark:text-gray-300 mr-1">Cancel</button> 
@@ -204,10 +210,10 @@ Attendance
                 <input type="hidden" name="id" id="id" />
                 <input type="hidden" name="generated_id" id="generated_id" />
                 <div class="col-span-12 sm:col-span-12"> <label>Date</label> <input type="date" name="date" id="date" required class="input w-full border mt-2 flex-1"> </div>
-                <div class="col-span-12 sm:col-span-6"> <label>Time-In AM</label> <input type="time" require name="time_in_am" id="time_in_am" required class="input w-full border mt-2 flex-1"> </div>
-                <div class="col-span-12 sm:col-span-6"> <label>Time-Out AM</label> <input type="time" require name="time_out_am" id="time_out_am" required class="input w-full border mt-2 flex-1"> </div>
-                <div class="col-span-12 sm:col-span-6"> <label>Time-In PM</label> <input type="time" require name="time_in_pm" id="time_in_pm" required class="input w-full border mt-2 flex-1"> </div>
-                <div class="col-span-12 sm:col-span-6"> <label>Time-Out PM</label> <input type="time" require name="time_out_pm" id="time_out_pm" required class="input w-full border mt-2 flex-1"> </div>
+                <div class="col-span-12 sm:col-span-6"> <label>Time-In AM</label> <input type="time" name="time_in_am" id="time_in_am" class="input w-full border mt-2 flex-1"> </div>
+                <div class="col-span-12 sm:col-span-6"> <label>Time-Out AM</label> <input type="time" name="time_out_am" id="time_out_am" class="input w-full border mt-2 flex-1"> </div>
+                <div class="col-span-12 sm:col-span-6"> <label>Time-In PM</label> <input type="time" name="time_in_pm" id="time_in_pm" class="input w-full border mt-2 flex-1"> </div>
+                <div class="col-span-12 sm:col-span-6"> <label>Time-Out PM</label> <input type="time" name="time_out_pm" id="time_out_pm" class="input w-full border mt-2 flex-1"> </div>
             </div>
             <div class="px-5 py-3 text-right border-t border-gray-200 dark:border-dark-5"> 
                 <button type="button" data-dismiss="modal" class="button w-20 border text-gray-700 dark:border-dark-5 dark:text-gray-300 mr-1">Cancel</button> 
