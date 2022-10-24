@@ -22,7 +22,7 @@ Dashboard
                     <div class="flex">
                         <i data-feather="users" class="text-theme-10"></i>
                     </div>
-                    <div class="text-3xl font-bold leading-8 mt-6">0</div>
+                    <div class="text-3xl font-bold leading-8 mt-6">{{$count_emp}}</div>
                     <div class="text-base text-gray-600 mt-1">Total of Employees</div>
                 </div>
             </div>
@@ -33,7 +33,7 @@ Dashboard
                     <div class="flex">
                         <i data-feather="pie-chart" class="text-theme-11"></i>
                     </div>
-                    <div class="text-3xl font-bold leading-8 mt-6">100%</div>
+                    <div class="text-3xl font-bold leading-8 mt-6">{{$count_percent_ontime}}%</div>
                     <div class="text-base text-gray-600 mt-1">On Time Percentage</div>
                 </div>
             </div>
@@ -44,7 +44,7 @@ Dashboard
                     <div class="flex">
                         <i data-feather="clock" class="text-theme-9"></i>
                     </div>
-                    <div class="text-3xl font-bold leading-8 mt-6">0</div>
+                    <div class="text-3xl font-bold leading-8 mt-6">{{$count_ontime}}</div>
                     <div class="text-base text-gray-600 mt-1">On Time Today</div>
                 </div>
             </div>
@@ -55,7 +55,7 @@ Dashboard
                     <div class="flex">
                         <i data-feather="alert-triangle" class="text-theme-6"></i>
                     </div>
-                    <div class="text-3xl font-bold leading-8 mt-6">0</div>
+                    <div class="text-3xl font-bold leading-8 mt-6">{{$count_late}}</div>
                     <div class="text-base text-gray-600 mt-1">Late Today</div>
                 </div>
             </div>
@@ -71,7 +71,11 @@ Dashboard
         </h2>
     </div>
     <div class="intro-y box p-5 mt-12 sm:mt-5">
-        <div id="chart" style="height: 300px;"></div>
+        {!! $chart->container() !!}
     </div>
 </div>
 @endsection
+@push('custom-scripts')
+<script src="https://cdn.jsdelivr.net/npm/frappe-charts@1.1.0/dist/frappe-charts.min.iife.js"></script>
+{!! $chart->script() !!}
+@endpush
