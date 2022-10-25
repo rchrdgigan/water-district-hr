@@ -31,8 +31,12 @@ class HomeController extends Controller
         $count_emp = Employee::count();
         $count_ontime = Attendance::where('status','Ontime')->where('date', $datenow)->count();
         $count_late = Attendance::where('status','Late')->where('date', $datenow)->count();
-        $decimal_ontime = $count_ontime / $count_emp;
-        $count_percent_ontime = $decimal_ontime * 100;
+        if($count_emp <> 0){
+            $decimal_ontime = $count_ontime / $count_emp;
+            $count_percent_ontime = $decimal_ontime * 100;
+        }else{
+            $count_percent_ontime=0;
+        }
 
         $current_yr = Carbon::parse(Now())->format('Y');
         $current_yr_jan = Carbon::parse($current_yr.'-01')->format('Y-m');

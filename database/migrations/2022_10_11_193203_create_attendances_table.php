@@ -18,12 +18,14 @@ return new class extends Migration
             $table->unsignedBigInteger('employee_id');
             $table->date('date');
             $table->time('time_in_am')->nullable();
-            $table->string('status_am')->nullable();
+            $table->double('num_hr_am')->nullable();
+            $table->integer('status_am')->nullable();
             $table->time('time_out_am')->nullable();
             $table->time('time_in_pm')->nullable();
-            $table->string('status_pm')->nullable();
+            $table->double('num_hr_pm')->nullable();
+            $table->integer('status_pm')->nullable();
             $table->time('time_out_pm')->nullable();
-            $table->integer('num_hr')->nullable();
+            $table->double('num_hr')->nullable();
             $table->string('status')->nullable();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->timestamps();

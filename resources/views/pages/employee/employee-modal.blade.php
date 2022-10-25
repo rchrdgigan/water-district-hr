@@ -22,9 +22,9 @@
             <div class="col-span-12 sm:col-span-4"> <label>SSS</label> <input type="number" name="sss" readonly id="sss" class="input w-full border mt-2 flex-1" placeholder="Input SSS Amount"> </div>
             <div class="col-span-12 sm:col-span-4"> <label>PhilHealth</label> <input type="number" readonly name="philhealth" id="philhealth" class="input w-full border mt-2 flex-1" placeholder="Input PhilHealth Amount"> </div>
             <div class="col-span-12 sm:col-span-4"> <label>Pag-IBIG</label> <input type="number" readonly name="pagibig" id="pagibig" class="input w-full border mt-2 flex-1" placeholder="Input Pag-IBIG Amount"> </div>
-            <div class="col-span-12 sm:col-span-4"> <label>Position</label> <input type="text" readonly name="position" id="position" class="input w-full border mt-2 flex-1" placeholder="Input Position"> </div>
-            <div class="col-span-12 sm:col-span-4"> <label>Rate Per Day</label> <input type="number" readonly name="rate_per_day" id="rate_per_day" class="input w-full border mt-2 flex-1" placeholder="Input Rate Per Day"> </div>
-            <div class="col-span-12 sm:col-span-4 mx-auto">
+            <div class="col-span-12 sm:col-span-6"> <label>Position</label> <input type="text" readonly name="position" id="position" class="input w-full border mt-2 flex-1" placeholder="Input Position"> </div>
+            <div class="col-span-12 sm:col-span-3"> <label>Rate Per Day</label> <input type="number" readonly name="rate_per_day" id="rate_per_day" class="input w-full border mt-2 flex-1" placeholder="Input Rate Per Day"> </div>
+            <div class="col-span-12 sm:col-span-3 mx-auto">
                 <div id="qrcode"></div>
                 <a type="button" id="downloadbtn" class="button w-full bg-theme-1 text-white mt-2">Download QR</a>
             </div>
