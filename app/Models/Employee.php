@@ -33,7 +33,7 @@ class Employee extends Model
 
     public function attendance()
     {
-        return $this->hasOne(Attendance::class);
+        return $this->hasMany(Attendance::class);
     }
 
     public function toSearchableArray()

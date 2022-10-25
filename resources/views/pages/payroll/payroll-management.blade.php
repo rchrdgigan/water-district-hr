@@ -49,31 +49,61 @@ Payroll
                 </tr>
             </thead>
             <tbody>
-
+                @forelse($employees as $data)
                 <tr class="intro-x">
                     <td class="w-40">
                         <div class="flex">
-                            <p class="text-xs">Brad Feet</p>
+                            <p class="text-xs">{{$data->fname.' '.$data->lname}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="text-xs">4422144</p>
+                            <p class="text-xs">{{$data->generated_id}}</p>
+                        </div>
+                    </td>
+                    <?php
+                        $time_in_am = new DateTime($data->time_in_am);
+                        $time_out_am = new DateTime($data->time_out_am);
+                        $interval_am = $time_in_am->diff($time_out_am);
+                        $hrs_am = $interval_am->format('%h');
+                        $mins_am = $interval_am->format('%i');
+                        $mins_am = $mins_am/60;
+                        $int_am = $hrs_am + $mins_am;
+                        if($int_am > 4){
+                            $int_am = $int_am - 1;
+                        }
+                        $time_in_pm = new DateTime($data->time_in_pm);
+                        $time_out_pm = new DateTime($data->time_out_pm);
+                        $interval_pm = $time_in_pm->diff($time_out_pm);
+                        $hrs_pm = $interval_pm->format('%h');
+                        $mins_pm = $interval_pm->format('%i');
+                        $mins_pm = $mins_pm/60;
+                        $int_pm = $hrs_pm + $mins_pm;
+                        if($int_pm > 4){
+                            $int_pm = $int_pm - 1;
+                        }
+                        $total_hr  = $int_am + $int_pm;
+                        $rate_per_hour = $data->rate_per_day / $total_hr;
+                        //Gross
+                        $gross_inc = $rate_per_hour * $data->num_hr;
+                        //Deduction
+                        $deduction = $data->sss + $data->philhealth + $data->pagibig;
+                        //Net Pay
+                        $net_pay = $gross_inc - $deduction;
+                    ?>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="text-xs">{{$gross_inc}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="text-xs">1500</p>
+                            <p class="text-xs">{{$deduction}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="text-xs">600</p>
-                        </div>
-                    </td>
-                    <td class="w-40">
-                        <div class="flex">
-                            <p class="text-xs">900</p>
+                            <p class="text-xs">{{$net_pay}}</p>
                         </div>
                     </td>
                     <td class="w-40">
@@ -82,38 +112,40 @@ Payroll
                         </div>
                     </td>
                 </tr>
+                @empty
                 <tr class="intro-x">
                     <td class="w-40">
                         <div class="flex">
-                            <p class="text-xs">Brad Feet</p>
+                            <p class="text-xs"></p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="text-xs">4422144</p>
+                            <p class="text-xs"></p>
+                        </div>
+                    </td>
+                    <td class="w-40 text-center">
+                        <div class="flex justify-center">
+                            <p class="text-xs">No Data Available!</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="text-xs">1500</p>
+                            <p class="text-xs"></p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="text-xs">600</p>
+                            <p class="text-xs"></p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="text-xs">900</p>
-                        </div>
-                    </td>
-                    <td class="w-40">
-                        <div class="flex">
-                            <button class="custom__button w-36 text-white text-center hover:bg-blue-400 bg-theme-12 xl:mr-3 flex" type="submit"><i data-feather="printer"></i>Payslip</button>
+                            <p class="text-xs"></p>
                         </div>
                     </td>
                 </tr>
+                @endforelse
 
             </tbody>
         </table>
