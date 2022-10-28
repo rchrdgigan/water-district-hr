@@ -67,7 +67,8 @@ Route::middleware('auth')->group(function(){
     ->prefix('payroll')
     ->group(function(){
         Route::get('/','index')->name('index');
-        Route::get('/list','printPayroll')->name('list');
+        Route::get('/filtered/{from}/{to}','listFilteredDate')->name('filtered');
+        Route::get('/print/{from}/{to}','printPayroll')->name('print');
         Route::get('/payslip','printPayslip')->name('payslip');
     });
 });

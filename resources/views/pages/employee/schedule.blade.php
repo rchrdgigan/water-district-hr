@@ -1,7 +1,7 @@
 @extends('../../layouts.admin')
 
 @section('title')
-Employee List
+Schedule List
 @endsection
 
 @section('breadcrumbs')

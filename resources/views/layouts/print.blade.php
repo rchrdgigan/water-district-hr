@@ -20,9 +20,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     window.addEventListener("load", window.print());
-    window.onafterprint = function(){
-        window.location.href = '{{ URL::previous() }}';
-    }
 </script>
+@stack('custom-scripts')
 </body>
 </html>

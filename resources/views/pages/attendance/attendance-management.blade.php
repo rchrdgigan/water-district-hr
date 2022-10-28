@@ -72,23 +72,28 @@ Attendance
                             <p class="text-xs">{{(isset($data->time_in_am)==null)? '--:-- --' : Carbon\Carbon::parse($data->time_in_am)->format('h:i A')}}</p>
                         </div>
                     </td>
-                    @if(isset($data->hr_work))
-                        <?php
-                            $input = floatval($data->hr_work);
-                            if($input <> 0){
-                                if($input && intval($input) != $input){
-                                    list($hours, $wrongMinutes) = explode('.', $input);
-                                    $minutes = ($wrongMinutes < 10 ? $wrongMinutes * 10 : $wrongMinutes) * 0.6;
-                                    echo $hours . 'hr | ' . substr(round($minutes), 0, 2) .' min WH';
-                                }else{
-                                    echo $input . 'hr WH';
-                                }
-                            }
-                        ?>
-                    @endif
+                   
                     <td class="w-40 border-r">
                         <div class="flex justify-center">
-                            <p class="text-xs">{{(isset($data->time_out_am)==null)? '--:-- --' : Carbon\Carbon::parse($data->time_out_am)->format('h:i A')}}</p><p class="ml-auto text-xs {{(!isset($data->time_out_am)==null)? ($data->status_am == true) ? 'bg-green-500' : 'bg-red-500' : 'bg-gray-500'}} rounded-full p-1 text-white">{{(!isset($data->time_out_am)==null)? ($data->status_am == true) ? 'Ontime' : 'Late' :'N/A'}}</p>
+                            <p class="text-xs">{{(isset($data->time_out_am)==null)? '--:-- --' : Carbon\Carbon::parse($data->time_out_am)->format('h:i A')}}</p>
+                            <p class="ml-auto text-xs {{(!isset($data->time_out_am)==null)? ($data->status_am == true) ? 'bg-green-500' : 'bg-red-500' : 'bg-gray-500'}} rounded-full p-1 text-white">
+                            @if(isset($data->num_hr_am))
+                                <?php
+                                    $input = floatval($data->num_hr_am);
+                                    if($input <> 0){
+                                        if($input && intval($input) != $input){
+                                            list($hours, $wrongMinutes) = explode('.', $input);
+                                            $minutes = ($wrongMinutes < 10 ? $wrongMinutes * 10 : $wrongMinutes) * 0.6;
+                                            echo $hours . 'hrs | ' . substr(round($minutes), 0, 2) .' min';
+                                        }else{
+                                            echo $input . 'hrs';
+                                        }
+                                    }else{
+                                        echo $input . 'hr';
+                                    }
+                                ?>
+                            @endif
+                            </p>
                         </div>
                     </td>
                     <td class="w-40 border-l">
@@ -98,7 +103,25 @@ Attendance
                     </td>
                     <td class="w-40 border-r">
                         <div class="flex justify-center">
-                            <p class="text-xs">{{(isset($data->time_out_pm)==null)? '--:-- --' : Carbon\Carbon::parse($data->time_out_pm)->format('h:i A')}}</p><p class="ml-auto text-xs {{(!isset($data->time_out_pm)==null)? ($data->status_pm == true) ? 'bg-green-500' : 'bg-red-500' : 'bg-gray-500'}} rounded-full p-1 text-white">{{(!isset($data->time_out_pm)==null)? ($data->status_pm == true) ? 'Ontime' : 'Late' :'N/A'}}</p>
+                            <p class="text-xs">{{(isset($data->time_out_pm)==null)? '--:-- --' : Carbon\Carbon::parse($data->time_out_pm)->format('h:i A')}}</p>
+                            <p class="ml-auto text-xs {{(!isset($data->time_out_pm)==null)? ($data->status_pm == true) ? 'bg-green-500' : 'bg-red-500' : 'bg-gray-500'}} rounded-full p-1 text-white">
+                            @if(isset($data->num_hr_pm))
+                                <?php
+                                    $input = floatval($data->num_hr_pm);
+                                    if($input <> 0){
+                                        if($input && intval($input) != $input){
+                                            list($hours, $wrongMinutes) = explode('.', $input);
+                                            $minutes = ($wrongMinutes < 10 ? $wrongMinutes * 10 : $wrongMinutes) * 0.6;
+                                            echo $hours . 'hrs | ' . substr(round($minutes), 0, 2) .' min';
+                                        }else{
+                                            echo $input . 'hrs';
+                                        }
+                                    }else{
+                                        echo $input . 'hr';
+                                    }
+                                ?>
+                            @endif
+                            </p>
                         </div>
                     </td>
                     <td class="w-40">

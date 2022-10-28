@@ -13,18 +13,20 @@ Payroll
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-no-wrap items-center mt-2">
     <h2 class="intro-y text-lg font-medium mr-5 text-center">Payroll Management</h2>
         <div class="intro-x text-center xl:text-left flex">
-            <a href="{{route('payroll.list')}}" class="custom__button w-36 text-white text-center hover:bg-blue-400 bg-theme-9 xl:mr-3 flex" type="submit"><i data-feather="printer"></i>Payroll</a>
+            <a href="{{route('payroll.print',[$from,$to])}}" class="custom__button w-36 text-white text-center hover:bg-blue-400 bg-theme-9 xl:mr-3 flex" type="submit"><i data-feather="printer"></i>Payroll</a>
         </div>
-        <div class="hidden md:block mx-auto text-gray-600">
+        <div class="mx-auto text-gray-600">
             <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+            <form method="GET">
                 <div class="w-full xl:w-56 relative text-gray-700 dark:text-gray-300">
                     <?php 
-                    $startDate = Carbon\Carbon::now()->format('m/d/Y');
-                    $firstDay = Carbon\Carbon::now()->firstOfMonth()->format('m/d/Y'); 
+                    $startDate = Carbon\Carbon::parse($from)->format('m/d/Y');
+                    $firstDay = Carbon\Carbon::parse($to)->format('m/d/Y'); 
                     ?>
-                    <input type="text" value="{{ $firstDay .' - '. $startDate }}" class="input w-full xl:w-56 box pr-10 placeholder-theme-13"  style="padding:10px; border-radius: 20px;" name="dates" />
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 
+                    <input type="text" value="{{ $startDate .' - '. $firstDay }}" class="input w-full xl:w-56 box pr-10 placeholder-theme-13" id="daterange" style="padding:10px; border-radius: 20px;" name="dates" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                 </div>
+            </form>
             </div>
         </div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
@@ -108,7 +110,7 @@ Payroll
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <button class="custom__button w-36 text-white text-center hover:bg-blue-400 bg-theme-12 xl:mr-3 flex" type="submit"><i data-feather="printer"></i>Payslip</button>
+                            <a  href="{{route('payroll.payslip')}}" class="custom__button w-36 text-white text-center hover:bg-blue-400 bg-theme-12 xl:mr-3 flex" type="submit"><i data-feather="printer"></i>Payslip</a>
                         </div>
                     </td>
                 </tr>
@@ -155,5 +157,11 @@ Payroll
 @push('custom-scripts')
 <script>
 $('input[name="dates"]').daterangepicker();
+$('#daterange').on('apply.daterangepicker', function(ev, picker) {
+    var url = '{{route("payroll.filtered",[$from = ":from", $to = ":to"])}}';
+    url = url.replace(':from', picker.startDate.format('YYYY-MM-DD'));
+    url = url.replace(':to', picker.endDate.format('YYYY-MM-DD'));
+    window.location.href = url;
+});
 </script>
 @endpush

@@ -9,6 +9,11 @@ Payroll
 @endsection
 
 @section('content')
+<div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
+    <div class="col-span-12 text-center">
+        <h1 class="text-xl"><b>Payroll List</b></h1>
+    </div>
+</div>
 <div class="overflow-x-auto">
         <table class="table">
             <thead>
@@ -93,3 +98,10 @@ Payroll
         </table>
     </div>
 @endsection
+@push('custom-scripts')
+<script>
+window.onafterprint = function(){
+    window.location.href = '{{ url()->previous() }}';
+}
+</script>
+@endpush
