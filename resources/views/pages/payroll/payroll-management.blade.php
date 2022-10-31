@@ -29,12 +29,14 @@ Payroll
             </form>
             </div>
         </div>
-        <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-            <div class="w-full xl:w-56 relative text-gray-700 dark:text-gray-300">
-                <input type="text" class="input w-full xl:w-56 box pr-10 placeholder-theme-13" style="padding:10px; border-radius: 20px;" placeholder="Search...">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> 
+        <form method="GET">
+            <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
+                <div class="w-full xl:w-56 relative text-gray-700 dark:text-gray-300">
+                    <input type="text"  name="search" value="{{ request()->get('search') }}" class="input w-full xl:w-56 box pr-10 placeholder-theme-13" style="padding:10px; border-radius: 20px;" placeholder="Search...">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg> 
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 <div class="col-span-12 lg:col-span-6">
@@ -71,9 +73,9 @@ Payroll
                         $mins_am = $interval_am->format('%i');
                         $mins_am = $mins_am/60;
                         $int_am = $hrs_am + $mins_am;
-                        if($int_am > 4){
-                            $int_am = $int_am - 1;
-                        }
+                        // if($int_am > 4){
+                        //     $int_am = $int_am - 1;
+                        // }
                         $time_in_pm = new DateTime($data->time_in_pm);
                         $time_out_pm = new DateTime($data->time_out_pm);
                         $interval_pm = $time_in_pm->diff($time_out_pm);
@@ -81,9 +83,9 @@ Payroll
                         $mins_pm = $interval_pm->format('%i');
                         $mins_pm = $mins_pm/60;
                         $int_pm = $hrs_pm + $mins_pm;
-                        if($int_pm > 4){
-                            $int_pm = $int_pm - 1;
-                        }
+                        // if($int_pm > 4){
+                        //     $int_pm = $int_pm - 1;
+                        // }
                         $total_hr  = $int_am + $int_pm;
                         $rate_per_hour = $data->rate_per_day / $total_hr;
                         //Gross
@@ -110,7 +112,7 @@ Payroll
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <a  href="{{route('payroll.payslip')}}" class="custom__button w-36 text-white text-center hover:bg-blue-400 bg-theme-12 xl:mr-3 flex" type="submit"><i data-feather="printer"></i>Payslip</a>
+                            <a  href="{{route('payroll.payslip',[$data->id,$from,$to])}}" class="custom__button w-36 text-white text-center hover:bg-blue-400 bg-theme-12 xl:mr-3 flex" type="submit"><i data-feather="printer"></i>Payslip</a>
                         </div>
                     </td>
                 </tr>

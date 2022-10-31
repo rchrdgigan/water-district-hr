@@ -22,28 +22,65 @@ Payroll
 </table>
 <div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
     <div class="flex col-span-6"> 
-        <b class="ml-auto">Date of joining :</b> 
-        <p class="text-sm mr-auto">Aug 20, 2021</p>
+        <b class="ml-auto">Date of joining : </b> 
+        <p class="text-sm ml-2 mr-auto">{{Carbon\Carbon::parse($employees->created_at)->format('M d, Y')}}</p>
    </div>
    <div class="flex col-span-6"> 
         <b class="ml-auto">Employee ID :</b> 
-        <p class="text-sm mr-auto">3123123123</p>
+        <p class="text-sm ml-2 mr-auto">{{$employees->generated_id}}</p>
    </div>
    <div class="flex col-span-6"> 
         <b class="ml-auto">Pay Period : </b> 
-        <p class="text-sm mr-auto">Aug 2021</p>
+        <p class="text-sm ml-2 mr-auto">{{Carbon\Carbon::parse($from)->format('M d, Y').' to '.Carbon\Carbon::parse($to)->format('M d, Y')}}</p>
    </div>
+
    <div class="flex col-span-6"> 
         <b class="ml-auto">Employee Name : </b> 
-        <p class="text-sm mr-auto">Employee Name</p>
+        <p class="text-sm ml-2 mr-auto">{{$employees->fname.' '.$employees->lname}}</p>
    </div>
+
+   <?php
+    $time_in_am = new DateTime($employees->time_in_am);
+    $time_out_am = new DateTime($employees->time_out_am);
+    $interval_am = $time_in_am->diff($time_out_am);
+    $hrs_am = $interval_am->format('%h');
+    $mins_am = $interval_am->format('%i');
+    $mins_am = $mins_am/60;
+    $int_am = $hrs_am + $mins_am;
+    // if($int_am > 4){
+    //     $int_am = $int_am - 1;
+    // }
+    $time_in_pm = new DateTime($employees->time_in_pm);
+    $time_out_pm = new DateTime($employees->time_out_pm);
+    $interval_pm = $time_in_pm->diff($time_out_pm);
+    $hrs_pm = $interval_pm->format('%h');
+    $mins_pm = $interval_pm->format('%i');
+    $mins_pm = $mins_pm/60;
+    $int_pm = $hrs_pm + $mins_pm;
+    // if($int_pm > 4){
+    //     $int_pm = $int_pm - 1;
+    // }
+    $total_hr  = $int_am + $int_pm;
+    $rate_per_hour = $employees->rate_per_day / $total_hr;
+    //Gross
+    $gross_inc = $employees->rate_per_day * $ct_attend_days + $overtime_amount;
+    //Deduction
+    $deduction = $employees->sss + $employees->philhealth + $employees->pagibig;
+    //Late hours
+    $late_hr = $employees->num_hr * $rate_per_hour;
+    $total_late = $employees->rate_per_day * $ct_attend_days - $late_hr;
+    //Total Deduction
+    $total_deduct = $deduction+$total_late;
+    //Net Pay
+    $net_pay = $gross_inc - $total_deduct;
+   ?>
    <div class="flex col-span-6"> 
         <b class="ml-auto">Working Hours : </b> 
-        <p class="text-sm mr-auto">12-hours</p>
+        <p class="text-sm ml-2 mr-auto">{{$total_hr}}-hours</p>
    </div>
    <div class="flex col-span-6"> 
         <b class="ml-auto">Designation: </b>
-        <p class="text-sm mr-auto">Employee Position Position Position  Position  Position</p>
+        <p class="text-sm ml-2 mr-auto">{{$employees->position}}</p>
    </div>
 </div>
 <table class="table">
@@ -58,39 +95,39 @@ Payroll
     <tbody>
         <tr>
             <td class="text-xs border">Basic Pay Per Day</td>
-            <td class="text-xs border text-right">1000</td>
+            <td class="text-xs border text-right">{{$employees->rate_per_day}}</td>
             <td class="text-xs border">SSS</td>
-            <td class="text-xs border text-right">100</td>
+            <td class="text-xs border text-right">{{$employees->sss}}</td>
         </tr>
         <tr>
             <td class="text-xs border">Worked Days</td>
-            <td class="text-xs border text-right">26</td>
+            <td class="text-xs border text-right">{{$ct_attend_days}}</td>
             <td class="text-xs border">Philhealth</td>
-            <td class="text-xs border text-right">100</td>
+            <td class="text-xs border text-right">{{$employees->philhealth}}</td>
         </tr>
         <tr>
-            <td class="text-xs border"></td>
-            <td class="text-xs border"></td>
+            <td class="text-xs border">Overtime</td>
+            <td class="text-xs border text-right">{{$overtime_amount}}</td>
             <td class="text-xs border">Pag-Ibig</td>
-            <td class="text-xs border text-right">100</td>
+            <td class="text-xs border text-right">{{$employees->pagibig}}</td>
         </tr>
         <tr>
             <td class="text-xs border"></td>
             <td class="text-xs border"></td>
             <td class="text-xs border">Late</td>
-            <td class="text-xs border text-right"></td>
+            <td class="text-xs border text-right">{{$total_late}}</td>
         </tr>
         <tr>
             <td class="text-xs border text-right">Total Earnings</td>
-            <td class="text-xs border text-right"></td>
+            <td class="text-xs border text-right">{{$gross_inc}}</td>
             <td class="text-xs border text-right">Total Deductions</td>
-            <td class="text-xs border text-right"></td>
+            <td class="text-xs border text-right">{{$total_deduct}}</td>
         </tr>
         <tr>
             <td class="text-xs border"></td>
             <td class="text-xs border"></td>
             <td class="text-xs border text-right">Net Pay</td>
-            <td class="text-xs border text-right"></td>
+            <td class="text-xs border text-right">{{$net_pay}}</td>
         </tr>
     </tbody>
 </table>

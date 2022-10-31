@@ -157,4 +157,9 @@ class EmployeeController extends Controller
         toast('Employee information successfully deleted!','info');
         return redirect()->back();
     }
+
+    public function schedulePrint(){
+        $employees = Employee::get();
+        return view('pages.employee.print-schedule', compact('employees'));
+    }
 }

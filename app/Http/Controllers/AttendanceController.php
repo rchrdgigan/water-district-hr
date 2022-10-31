@@ -93,9 +93,9 @@ class AttendanceController extends Controller
                     $mins_am = $interval_am->format('%i');
                     $mins_am = $mins_am/60;
                     $int_am = $hrs_am + $mins_am;
-                    if($int_am > 4){
-                        $int_am = $int_am - 1;
-                    }
+                    // if($int_am > 4){
+                    //     $int_am = $int_am - 1;
+                    // }
                 }else{
                     $int_am = 0;
                 }
@@ -121,9 +121,9 @@ class AttendanceController extends Controller
                     $mins_pm = $interval_pm->format('%i');
                     $mins_pm = $mins_pm/60;
                     $int_pm = $hrs_pm + $mins_pm;
-                    if($int_pm > 4){
-                        $int_pm = $int_pm - 1;
-                    }
+                    // if($int_pm > 4){
+                    //     $int_pm = $int_pm - 1;
+                    // }
                 }else{
                     $int_pm = 0;
                 }
@@ -199,9 +199,9 @@ class AttendanceController extends Controller
                 $mins_am = $interval_am->format('%i');
                 $mins_am = $mins_am/60;
                 $int_am = $hrs_am + $mins_am;
-                if($int_am > 4){
-                    $int_am = $int_am - 1;
-                }
+                // if($int_am > 4){
+                //     $int_am = $int_am - 1;
+                // }
             }else{
                 $int_am=0;
             }
@@ -227,9 +227,9 @@ class AttendanceController extends Controller
                 $mins_pm = $interval_pm->format('%i');
                 $mins_pm = $mins_pm/60;
                 $int_pm = $hrs_pm + $mins_pm;
-                if($int_pm > 4){
-                    $int_pm = $int_pm - 1;
-                }
+                // if($int_pm > 4){
+                //     $int_pm = $int_pm - 1;
+                // }
             }else{
                 $int_pm=0;
             }
@@ -321,9 +321,9 @@ class AttendanceController extends Controller
                             $mins_am = $interval_am->format('%i');
                             $mins_am = $mins_am/60;
                             $int_am = $hrs_am + $mins_am;
-                            if($int_am > 4){
-                                $int_am = $int_am - 1;
-                            }
+                            // if($int_am > 4){
+                            //     $int_am = $int_am - 1;
+                            // }
                         }
                         if($is_out_am->time_in_pm == null){
                             $int_pm = 0;
@@ -369,9 +369,9 @@ class AttendanceController extends Controller
                             $mins_am = $interval_am->format('%i');
                             $mins_am = $mins_am/60;
                             $int_am = $hrs_am + $mins_am;
-                            if($int_am > 4){
-                                $int_am = $int_am - 1;
-                            }
+                            // if($int_am > 4){
+                            //     $int_am = $int_am - 1;
+                            // }
                         }
                         if($is_out_am->time_in_pm == null){
                             $int_pm = 0;
@@ -441,9 +441,9 @@ class AttendanceController extends Controller
                             $mins_am = $interval_am->format('%i');
                             $mins_am = $mins_am/60;
                             $int_am = $hrs_am + $mins_am;
-                            if($int_am > 4){
-                                $int_am = $int_am - 1;
-                            }
+                            // if($int_am > 4){
+                            //     $int_am = $int_am - 1;
+                            // }
                         }
                         if($is_out_pm->time_in_pm == null){
                             $int_pm = 0;
@@ -468,9 +468,9 @@ class AttendanceController extends Controller
                             $mins_pm = $interval_pm->format('%i');
                             $mins_pm = $mins_pm/60;
                             $int_pm = $hrs_pm + $mins_pm;
-                            if($int_pm > 4){
-                                $int_pm = $int_pm - 1;
-                            }
+                            // if($int_pm > 4){
+                            //     $int_pm = $int_pm - 1;
+                            // }
                         }
             
                         $sum_am_pm = $int_pm + $int_am;
@@ -546,9 +546,9 @@ class AttendanceController extends Controller
                             $mins_am = $interval_am->format('%i');
                             $mins_am = $mins_am/60;
                             $int_am = $hrs_am + $mins_am;
-                            if($int_am > 4){
-                                $int_am = $int_am - 1;
-                            }
+                            // if($int_am > 4){
+                            //     $int_am = $int_am - 1;
+                            // }
                         }
                         if($is_out_am->time_in_pm == null){
                             $int_pm = 0;
@@ -594,9 +594,9 @@ class AttendanceController extends Controller
                             $mins_am = $interval_am->format('%i');
                             $mins_am = $mins_am/60;
                             $int_am = $hrs_am + $mins_am;
-                            if($int_am > 4){
-                                $int_am = $int_am - 1;
-                            }
+                            // if($int_am > 4){
+                            //     $int_am = $int_am - 1;
+                            // }
                         }
                         if($is_out_am->time_in_pm == null){
                             $int_pm = 0;
@@ -667,9 +667,9 @@ class AttendanceController extends Controller
                             $mins_am = $interval_am->format('%i');
                             $mins_am = $mins_am/60;
                             $int_am = $hrs_am + $mins_am;
-                            if($int_am > 4){
-                                $int_am = $int_am - 1;
-                            }
+                            // if($int_am > 4){
+                            //     $int_am = $int_am - 1;
+                            // }
                         }
                         if($is_out_pm->time_in_pm == null){
                             $int_pm = 0;
@@ -694,9 +694,9 @@ class AttendanceController extends Controller
                             $mins_pm = $interval_pm->format('%i');
                             $mins_pm = $mins_pm/60;
                             $int_pm = $hrs_pm + $mins_pm;
-                            if($int_pm > 4){
-                                $int_pm = $int_pm - 1;
-                            }
+                            // if($int_pm > 4){
+                            //     $int_pm = $int_pm - 1;
+                            // }
                         }
             
                         $sum_am_pm = $int_pm + $int_am;

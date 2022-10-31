@@ -13,7 +13,7 @@ Employee Attendance
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-no-wrap items-center mt-2">
     <h2 class="intro-y text-lg font-medium mr-5 text-center">Employees Schedule List</h2>
         <div class="intro-x text-center xl:text-left">
-            <button class="custom__button w-36 text-white text-center hover:bg-blue-400 bg-theme-1 xl:mr-3 flex" type="submit"><i data-feather="printer"></i>Print</button>
+            <a href="{{route('employee.schedule.print')}}" class="custom__button w-36 text-white text-center hover:bg-blue-400 bg-theme-1 xl:mr-3 flex" type="submit"><i data-feather="printer"></i>Print</a>
         </div>
         <div class="hidden md:block mx-auto text-gray-600"></div>
         <form method="GET">

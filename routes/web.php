@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function(){
         //empolyee schedule
         Route::get('/schedule', 'schedule')->name('schedule');
         Route::put('/update/schedule', 'updateSchedule')->name('update.schedule');
+        Route::get('/schedule/print', 'schedulePrint')->name('schedule.print');
 
         Route::controller(OvertimeController::class)
         ->as('overtime.')
@@ -69,6 +70,6 @@ Route::middleware('auth')->group(function(){
         Route::get('/','index')->name('index');
         Route::get('/filtered/{from}/{to}','listFilteredDate')->name('filtered');
         Route::get('/print/{from}/{to}','printPayroll')->name('print');
-        Route::get('/payslip','printPayslip')->name('payslip');
+        Route::get('/payslip/{id}/{from}/{to}','printPayslip')->name('payslip');
     });
 });

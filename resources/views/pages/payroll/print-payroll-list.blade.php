@@ -39,9 +39,9 @@ Payroll
                         $mins_am = $interval_am->format('%i');
                         $mins_am = $mins_am/60;
                         $int_am = $hrs_am + $mins_am;
-                        if($int_am > 4){
-                            $int_am = $int_am - 1;
-                        }
+                        // if($int_am > 4){
+                        //     $int_am = $int_am - 1;
+                        // }
                         $time_in_pm = new DateTime($data->time_in_pm);
                         $time_out_pm = new DateTime($data->time_out_pm);
                         $interval_pm = $time_in_pm->diff($time_out_pm);
@@ -49,9 +49,9 @@ Payroll
                         $mins_pm = $interval_pm->format('%i');
                         $mins_pm = $mins_pm/60;
                         $int_pm = $hrs_pm + $mins_pm;
-                        if($int_pm > 4){
-                            $int_pm = $int_pm - 1;
-                        }
+                        // if($int_pm > 4){
+                        //     $int_pm = $int_pm - 1;
+                        // }
                         $total_hr  = $int_am + $int_pm;
                         $rate_per_hour = $data->rate_per_day / $total_hr;
                         //Gross
