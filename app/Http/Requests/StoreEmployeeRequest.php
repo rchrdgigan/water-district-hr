@@ -30,7 +30,7 @@ class StoreEmployeeRequest extends FormRequest
             'gender' => 'required',
             'address' => 'required',
             'birthdate' => 'required',
-            'contact' => 'required',
+            'contact' => 'required | regex:/^([0-9\s\-\+\(\)]*)$/|min:11|max:11',
             'time_in_am' => 'required',
             'time_out_am' => 'required',
             'time_in_pm' => 'required',

@@ -76,7 +76,7 @@ $(document).on("click", ".edit-dialog", function () {
     $('.modal__content #gender').val(gender);
     $('.modal__content #address').val(address);
     $('.modal__content #birthdate').val(birthdate);
-    $('.modal__content #contact').val('0'+contact);
+    $('.modal__content #contact').val(contact);
     $('.modal__content #time_in_am').val(time_in_am);
     $('.modal__content #time_out_am').val(time_out_am);
     $('.modal__content #time_in_pm').val(time_in_pm);
@@ -123,7 +123,7 @@ $(document).on("click", ".view-dialog", function () {
     $('.modal__content #gender').val(gender);
     $('.modal__content #address').val(address);
     $('.modal__content #birthdate').val(birthdate);
-    $('.modal__content #contact').val('0'+contact);
+    $('.modal__content #contact').val(contact);
     $('.modal__content #time_in_am').val(time_in_am);
     $('.modal__content #time_out_am').val(time_out_am);
     $('.modal__content #time_in_pm').val(time_in_pm);

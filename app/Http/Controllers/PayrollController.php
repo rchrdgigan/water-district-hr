@@ -35,7 +35,7 @@ class PayrollController extends Controller
                     DB::raw("SUM(attendances.num_hr) as num_hr")
                 )
                 ->groupBy('employees.sss','employees.philhealth','employees.pagibig','employees.rate_per_day', 'employees.id','employees.generated_id','employees.fname', 'employees.lname', 'employees.time_in_am', 'employees.time_out_am', 'employees.time_in_pm', 'employees.time_out_pm')
-                ->where(DB::raw("CONCAT(fname, ' ', mname, ' ', lname)"), request('search'))
+                ->where(DB::raw("CONCAT(fname, ' ', mname, ' ', lname)"),'LIKE', '%'.request('search').'%')
                 ->orWhere('generated_id', request('search'))
                 ->get();
         }else{
@@ -144,7 +144,7 @@ class PayrollController extends Controller
         ->groupBy('employees.position','employees.sss','employees.philhealth','employees.pagibig','employees.rate_per_day', 'employees.id','employees.generated_id','employees.fname', 'employees.lname', 'employees.time_in_am', 'employees.time_out_am', 'employees.time_in_pm', 'employees.time_out_pm','employees.created_at')
         ->where('employees.id', $id)->first();
         
-        $ct_attend_days = Attendance::where('employee_id', $id)->count();
+        $ct_attend_days = Attendance::whereBetween('date', [$from, $to])->where('employee_id', $id)->count();
         return view('pages.payroll.print-payslip',compact('employees','from','to','ct_attend_days','overtime_amount'));
     }
   

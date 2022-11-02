@@ -63,7 +63,24 @@
                 <div class="col-span-12 sm:col-span-4"> <label>SSS</label> <input type="number" name="sss" id="sss" class="input w-full border mt-2 flex-1" placeholder="Input SSS Amount"> </div>
                 <div class="col-span-12 sm:col-span-4"> <label>PhilHealth</label> <input type="number" name="philhealth" id="philhealth" class="input w-full border mt-2 flex-1" placeholder="Input PhilHealth Amount"> </div>
                 <div class="col-span-12 sm:col-span-4"> <label>Pag-IBIG</label> <input type="number" name="pagibig" id="pagibig" class="input w-full border mt-2 flex-1" placeholder="Input Pag-IBIG Amount"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>Position</label> <input type="text" name="position" id="position" class="input w-full border mt-2 flex-1" placeholder="Input Position"> </div>
+                <div class="col-span-12 sm:col-span-4"> <label>Position</label> <select  name="position" id="position" class="input w-full border mt-2 flex-1">
+                        <option>--Select--</option>
+                        <option>Water Sewerage Maintenance Man B (6/2)</option>
+                        <option>Administrative Services Aide (4/1)</option>
+                        <option>Administration Services Asst.B (10/2)</option>
+                        <option>Property/Supply Assitant B (8/3)</option>
+                        <option>Water Sewerage Maintenance Man A (8/2)</option>
+                        <option>Water Resources Facilities Operator B (6/2)</option>
+                        <option>Utilities/Customers Services Assistant C (8/2)</option>
+                        <option>Administrative/General Services Officer A (16/3)</option>
+                        <option>General Manager C (26/4)</option>
+                        <option>Water/Sewerage Maintenance Man A (8/2)</option>
+                        <option>Water Resources Facilities Tender B (4/2)</option>
+                        <option>Administrative Services Aide (4/2)</option>
+                        <option>Water Resources Facilities Tender B (4/1)</option>
+                        <option>Clerk Processor B (6/1)</option>
+                        <option>Water/Sewerage Maintenance Man C (4/2)</option>
+                    </select></div>
                 <div class="col-span-12 sm:col-span-4"> <label>Rate Per Day</label> <input type="number" name="rate_per_day" id="rate_per_day" class="input w-full border mt-2 flex-1" placeholder="Input Rate Per Day"> </div>
                 <div class="col-span-12 sm:col-span-4"> <label>Upload Photo</label> <input type="file" name="image" class="input w-full border mt-2 flex-1"> </div>
             </div>

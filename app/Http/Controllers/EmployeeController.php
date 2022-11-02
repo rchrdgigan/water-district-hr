@@ -109,6 +109,7 @@ class EmployeeController extends Controller
     {
         $validated = $request->validate([
             'image'         => 'nullable|image|file|max:5000',
+            'contact' => 'required | regex:/^([0-9\s\-\+\(\)]*)$/|min:11|max:11',
         ]);
         $employee = Employee::findorFail($request->id);
         $employee->fname = $request->fname;

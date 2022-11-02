@@ -73,6 +73,18 @@ class AttendanceController extends Controller
                     $logstatuspm = 0;
                 }
 
+                if(isset($validated['time_out_am'])){
+                    $logstatusam = ($validated['time_out_am'] < $employee->time_out_am) ? 0 : 1;
+                }else{
+                    $logstatusam = 0;
+                }
+
+                if(isset($validated['time_out_pm'])){
+                    $logstatuspm = ($validated['time_out_pm'] < $employee->time_out_pm) ? 0 : 1;
+                }else{
+                    $logstatuspm = 0;
+                }
+
                 if(isset($validated['time_in_am']) && isset($validated['time_out_am'])){
                     if($employee->time_in_am > $validated['time_in_am']){
                         $time_in_am = $employee->time_in_am;
@@ -178,6 +190,18 @@ class AttendanceController extends Controller
                 $logstatuspm = ($request->time_in_pm > $employee->time_in_pm) ? 0 : 1;
             }else{
                 $logstatuspm=0;
+            }
+
+            if(isset($request->time_out_am)){
+                $logstatusam = ($request->time_out_am < $employee->time_out_am) ? 0 : 1;
+            }else{
+                $logstatusam = 0;
+            }
+
+            if(isset($request->time_out_pm)){
+                $logstatuspm = ($request->time_out_pm < $employee->time_out_pm) ? 0 : 1;
+            }else{
+                $logstatuspm = 0;
             }
 
             if(isset($request->time_in_am) && isset($request->time_out_am)){
