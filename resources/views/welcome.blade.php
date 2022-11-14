@@ -1,4 +1,4 @@
-@extends('layouts.attendance')
+@extends('layouts.app')
 @section('title')
 Employee Attendance | Information Management System for HR
 @endsection

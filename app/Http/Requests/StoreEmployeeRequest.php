@@ -24,9 +24,9 @@ class StoreEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'fname' => 'required',
-            'mname' => 'required',
-            'lname' => 'required',
+            'fname' => 'required | regex:/^[a-zA-Z]+$/',
+            'mname' => 'required | regex:/^[a-zA-Z]+$/',
+            'lname' => 'required | regex:/^[a-zA-Z]+$/',
             'gender' => 'required',
             'address' => 'required',
             'birthdate' => 'required',
