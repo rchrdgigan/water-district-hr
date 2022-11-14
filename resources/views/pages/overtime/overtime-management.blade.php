@@ -34,6 +34,7 @@ Overtime
                     <th class="custom__bg__theme text-xs text-white">Name</th>
                     <th class="custom__bg__theme text-xs text-white">No. of Hours</th>
                     <th class="custom__bg__theme text-xs text-white">Rate</th>
+                    <th class="custom__bg__theme text-xs text-white">Total</th>
                     <th class="custom__bg__theme text-xs text-white" style="border-top-right-radius: 20px;">Action</th>
                 </tr>
             </thead>
@@ -63,6 +64,11 @@ Overtime
                     <td class="w-40">
                         <div class="flex">
                             <p class="text-xs">{{$data->rate}}</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="text-xs">{{$data->rate * number_format((float)$data->hours, 2, '.', '')}}</p>
                         </div>
                     </td>
                     <td class="w-40">
@@ -121,10 +127,10 @@ Overtime
 @if($pagination <> false)
 {!! $overtime->links() !!} 
 @endif
-<!-- Edit Overtime -->
+<!-- Add Overtime -->
 <div class="modal" id="add">
     <div class="modal__content">
-        <form action="{{route('employee.overtime.store')}}" method="post">
+        <form action="{{route('employee.overtime.store')}}" name="addForm" method="post">
             @csrf
             <div class="flex items-center px-5 py-5 sm:py-3 border-b border-gray-200 dark:border-dark-5">
                 <h2 class="font-medium text-base mr-auto">Add Employee Overtime</h2> 
@@ -132,9 +138,11 @@ Overtime
             <div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
                 <div class="col-span-12 sm:col-span-12"> <label>Employee ID</label> <input type="text" required name="generated_id" class="input w-full border mt-2 flex-1" placeholder="Input Employee ID"> </div>
                 <div class="col-span-12 sm:col-span-12"> <label>Date</label> <input type="date" required name="date_overtime"  class="input w-full border mt-2 flex-1" placeholder="Input Date"> </div>
-                <div class="col-span-12 sm:col-span-6"> <label>No. Hours</label> <input type="text" required name="hours"  class="input w-full border mt-2 flex-1" placeholder="Input No. of Hours"> </div>
-                <div class="col-span-12 sm:col-span-6"> <label>No. Mins</label> <input type="text" required name="mins" class="input w-full border mt-2 flex-1" placeholder="Input No. Mins"> </div>
-                <div class="col-span-12 sm:col-span-12"> <label>Rate</label> <input type="text" required name="rate" class="input w-full border mt-2 flex-1" placeholder="Input Rate Per Hour"> </div>
+                <div class="col-span-12 sm:col-span-6"> <label>No. Hours</label> <input type="number" required name="hours"  class="input w-full border mt-2 flex-1" placeholder="Input No. of Hours"> </div>
+                <div class="col-span-12 sm:col-span-6"> <label>No. Mins</label> <input type="number" required name="mins" class="input w-full border mt-2 flex-1" placeholder="Input No. Mins"> </div>
+                <div class="col-span-12 sm:col-span-12"> <label>Rate</label> <input type="text" onkeypress="return validate();" required name="rate" id="rate" class="input w-full border mt-2 flex-1" placeholder="Input Rate Per Hour">
+                    <div class="text-theme-6 mt-2" id="rate_err"></div>
+                </div>
             </div>
             <div class="px-5 py-3 text-right border-t border-gray-200 dark:border-dark-5"> 
                 <button type="button" data-dismiss="modal" class="button w-20 border text-gray-700 dark:border-dark-5 dark:text-gray-300 mr-1">Cancel</button> 
@@ -146,7 +154,7 @@ Overtime
  <!-- Edit Overtime -->
 <div class="modal" id="edit">
     <div class="modal__content">
-        <form action="{{route('employee.overtime.update')}}" method="post">
+        <form action="{{route('employee.overtime.update')}}" name="editForm" method="post">
             @csrf
             @method('PUT')
             <div class="flex items-center px-5 py-5 sm:py-3 border-b border-gray-200 dark:border-dark-5">
@@ -157,7 +165,9 @@ Overtime
                 <div class="col-span-12 sm:col-span-12"> <label>Date</label> <input type="date" name="date_overtime" id="date_overtime" class="input w-full border mt-2 flex-1" placeholder="Input Date"> </div>
                 <div class="col-span-12 sm:col-span-6"> <label>No. Hours</label> <input type="text" name="hours" id="hours" class="input w-full border mt-2 flex-1" placeholder="Input No. of Hours"> </div>
                 <div class="col-span-12 sm:col-span-6"> <label>No. Mins</label> <input type="text" name="mins" id="mins" class="input w-full border mt-2 flex-1" placeholder="Input No. Mins"> </div>
-                <div class="col-span-12 sm:col-span-12"> <label>Rate</label> <input type="text"  name="rate" id="rate" class="input w-full border mt-2 flex-1" placeholder="Input Rate Per Hour"> </div>
+                <div class="col-span-12 sm:col-span-12"> <label>Rate</label>  <input type="text" onkeypress="return validate();" required name="rate" id="rate" class="input w-full border mt-2 flex-1" placeholder="Input Rate Per Hour">
+                    <div class="text-theme-6 mt-2" id="_rate_err"></div>
+                </div>
             </div>
             <div class="px-5 py-3 text-right border-t border-gray-200 dark:border-dark-5"> 
                 <button type="button" data-dismiss="modal" class="button w-20 border text-gray-700 dark:border-dark-5 dark:text-gray-300 mr-1">Cancel</button> 
@@ -203,5 +213,22 @@ $(document).on("click", ".delete-dialog", function () {
     var id = $(this).data('id');
     $('.modal__content #data_id').val(id);
 });
+
+function validate() {
+
+    let rate = document.forms["addForm"]["rate"].value;
+    var rate_m = rate.match(/^\d{0,2}(?:\.\d{0,2}){0,1}$/);
+    if (!rate_m) {
+        document.getElementById("rate_err").innerHTML = "This rate is not valid. Rate must be a numeric.";
+        return false;
+    }
+
+    let e_rate = document.forms["editForm"]["rate"].value;
+    var rate_e = e_rate.match(/^\d{0,2}(?:\.\d{0,2}){0,1}$/);
+    if (!rate_e) {
+        document.getElementById("_rate_err").innerHTML = "This rate is not valid. Rate must be a numeric.";
+        return false;
+    }
+}
 </script>
 @endpush

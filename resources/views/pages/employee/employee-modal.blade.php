@@ -45,26 +45,102 @@
             @csrf
             <div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
                 <div class="col-span-12 sm:col-span-12 text-center" style="display:none;" id="add_err"><div class="rounded-md flex items-center px-5 py-4 mb-2 bg-theme-12 text-white"> <i data-feather="alert-circle" class="w-6 h-6 mr-2"></i> All fields must be filled out! <i data-feather="x" onclick="return closeAddAlert();" class="w-4 h-4 ml-auto"></i> </div></div>
-                <div class="col-span-12 sm:col-span-4"> <label>First Name</label> <input type="text" name="fname" id="fname" class="input w-full border mt-2 flex-1" placeholder="Input First Name"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>Middle Name</label> <input type="text" name="mname" id="mname" class="input w-full border mt-2 flex-1" placeholder="Input Middle Name"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>Lastname</label> <input type="text" name="lname" id="lname" class="input w-full border mt-2 flex-1" placeholder="Input Last Name"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>Gender</label> <select  name="gender" id="gender" class="input w-full border mt-2 flex-1">
-                        <option>--Select--</option>
+                <div class="col-span-12 sm:col-span-4"> <label>First Name</label> <input type="text" onkeydown="return /[a-z, ]/i.test(event.key)" name="fname" id="fname" class="input w-full border mt-2 flex-1 @error('fname') border-theme-6 @enderror" value="{{old('fname')}}" placeholder="Input First Name">
+                    @error('fname')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+                
+                <div class="col-span-12 sm:col-span-4"> <label>Middle Name</label> <input type="text" onkeydown="return /[a-z, ]/i.test(event.key)" name="mname" id="mname" class="input w-full border mt-2 flex-1 @error('mname') border-theme-6 @enderror" value="{{old('mname')}}" placeholder="Input Middle Name">
+                    @error('mname')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+                
+                <div class="col-span-12 sm:col-span-4"> <label>Lastname</label> <input type="text" onkeydown="return /[a-z, ]/i.test(event.key)" name="lname" id="lname" class="input w-full border mt-2 flex-1 @error('lname') border-theme-6 @enderror" value="{{old('lname')}}" placeholder="Input Last Name">
+                    @error('lname')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+                
+                <div class="col-span-12 sm:col-span-4"> <label>Gender</label> <select  name="gender" id="gender" class="input w-full border mt-2 flex-1 @error('gender') border-theme-6 @enderror">
+                        @if(old('gender'))
+                        <option>{{old('gender')}}</option>
+                        @endif
+                        <option value="">--Select--</option>
                         <option>Male</option>
                         <option>Female</option>
-                    </select> </div>
-                <div class="col-span-12 sm:col-span-8"> <label>Address</label> <input type="text" name="address" id="address" class="input w-full border mt-2 flex-1" placeholder="Input Address"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>Date of Birth</label> <input type="date" name="birthdate" id="birthdate" class="input w-full border mt-2 flex-1" placeholder="Input Date of Birth"> </div>
-                <div class="col-span-12 sm:col-span-8"> <label>Contact No.</label> <input type="text" name="contact" id="contact" class="input w-full border mt-2 flex-1" placeholder="Input Contact Number"> </div>
-                <div class="col-span-12 sm:col-span-3"> <label>Time-In AM</label> <input type="time" name="time_in_am" id="time_in_am" class="input w-full border mt-2 flex-1" value="08:00:00"> </div>
-                <div class="col-span-12 sm:col-span-3"> <label>Time-Out AM</label> <input type="time" name="time_out_am" id="time_out_am" class="input w-full border mt-2 flex-1" value="12:00:00"> </div>
-                <div class="col-span-12 sm:col-span-3"> <label>Time-In PM</label> <input type="time" name="time_in_pm" id="time_in_pm" class="input w-full border mt-2 flex-1" value="13:00:00"> </div>
-                <div class="col-span-12 sm:col-span-3"> <label>Time-Out PM</label> <input type="time" name="time_out_pm" id="time_out_pm" class="input w-full border mt-2 flex-1" value="17:00:00"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>SSS</label> <input type="number" name="sss" id="sss" class="input w-full border mt-2 flex-1" placeholder="Input SSS Amount"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>PhilHealth</label> <input type="number" name="philhealth" id="philhealth" class="input w-full border mt-2 flex-1" placeholder="Input PhilHealth Amount"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>Pag-IBIG</label> <input type="number" name="pagibig" id="pagibig" class="input w-full border mt-2 flex-1" placeholder="Input Pag-IBIG Amount"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>Position</label> <select  name="position" id="position" class="input w-full border mt-2 flex-1">
-                        <option>--Select--</option>
+                    </select>
+                    @error('gender')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+                    
+                <div class="col-span-12 sm:col-span-8"> <label>Address</label> <input type="text" name="address" id="address" class="input w-full border mt-2 flex-1 @error('address') border-theme-6 @enderror" value="{{old('address')}}" placeholder="Input Address">
+                    @error('address')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+                
+                <div class="col-span-12 sm:col-span-4"> <label>Date of Birth</label> <input type="date" name="birthdate" id="birthdate" class="input w-full border mt-2 flex-1 @error('birthdate') border-theme-6 @enderror" value="{{old('birthdate')}}" placeholder="Input Date of Birth">
+                    @error('birthdate')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+                
+                <div class="col-span-12 sm:col-span-8"> <label>Contact No.</label> <input type="text" name="contact" minlength="11" maxlength="11" id="contact" class="input w-full border mt-2 flex-1 @error('contact') border-theme-6 @enderror" value="{{old('contact')}}" placeholder="Input Contact Number"> 
+                    @error('contact')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+               
+                <div class="col-span-12 sm:col-span-3"> <label>Time-In AM</label> <input type="time" name="time_in_am" id="time_in_am" class="input w-full border mt-2 flex-1 @error('time_in_am') border-theme-6 @enderror" value="08:00:00">
+                    @error('time_in_am')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+                
+                <div class="col-span-12 sm:col-span-3"> <label>Time-Out AM</label> <input type="time" name="time_out_am" id="time_out_am" class="input w-full border mt-2 flex-1 @error('time_out_am') border-theme-6 @enderror" value="12:00:00">
+                    @error('time_out_am')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+                
+                <div class="col-span-12 sm:col-span-3"> <label>Time-In PM</label> <input type="time" name="time_in_pm" id="time_in_pm" class="input w-full border mt-2 flex-1 @error('time_in_pm') border-theme-6 @enderror" value="13:00:00">
+                    @error('time_in_pm')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+                
+                <div class="col-span-12 sm:col-span-3"> <label>Time-Out PM</label> <input type="time" name="time_out_pm" id="time_out_pm" class="input w-full border mt-2 flex-1 @error('time_out_pm') border-theme-6 @enderror" value="17:00:00">
+                    @error('time_out_pm')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+                
+                <div class="col-span-12 sm:col-span-4"> <label>SSS</label> <input type="number" name="sss" id="sss" class="input w-full border mt-2 flex-1" placeholder="Input SSS Amount @error('sss') border-theme-6 @enderror" value="{{old('sss')}}">
+                    @error('sss')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+                
+                <div class="col-span-12 sm:col-span-4"> <label>PhilHealth</label> <input type="number" name="philhealth" id="philhealth" class="input w-full border mt-2 flex-1 @error('philhealth') border-theme-6 @enderror" value="{{old('philhealth')}}" placeholder="Input PhilHealth Amount">
+                    @error('philhealth')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+               
+                <div class="col-span-12 sm:col-span-4"> <label>Pag-IBIG</label> <input type="number" name="pagibig" id="pagibig" class="input w-full border mt-2 flex-1 @error('pagibig') border-theme-6 @enderror" value="{{old('pagibig')}}" placeholder="Input Pag-IBIG Amount">
+                    @error('pagibig')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+                
+                <div class="col-span-12 sm:col-span-4"> <label>Position</label> <select  name="position" id="position" class="input w-full border mt-2 flex-1 @error('position') border-theme-6 @enderror" value="{{old('position')}}">
+                        @if(old('position'))
+                            <option>{{old('position')}}</option>
+                        @endif
+                        <option value="">--Select--</option>
                         <option>Water Sewerage Maintenance Man B (6/2)</option>
                         <option>Administrative Services Aide (4/1)</option>
                         <option>Administration Services Asst.B (10/2)</option>
@@ -80,8 +156,27 @@
                         <option>Water Resources Facilities Tender B (4/1)</option>
                         <option>Clerk Processor B (6/1)</option>
                         <option>Water/Sewerage Maintenance Man C (4/2)</option>
-                    </select></div>
-                <div class="col-span-12 sm:col-span-4"> <label>Rate Per Day</label> <input type="number" name="rate_per_day" id="rate_per_day" class="input w-full border mt-2 flex-1" placeholder="Input Rate Per Day"> </div>
+                        <option>Utilities/Customers Services Assistant D (6/2)</option>
+                        <option>Water/Sewerage Maintenance Man C (4/2)</option>
+                        <option>Utilities/Customers Services Assistant C (8/2)</option>
+                        <option>Administrative Services Aide (4/1)</option>
+                        <option>Senior Corporate Accountant B (17/1)</option>
+                        <option>Water/Sewerage Maintenance Man C (4/1)</option>
+                        <option>Engineering Assistant A (10/1)</option>
+                        <option>Water/Sewerage Maintenance Man A (8/3)</option>
+                        <option>Utilities/Customers Services Assistant D (6/2)</option>
+                    </select>
+                    @error('position')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
+                    
+                <div class="col-span-12 sm:col-span-4"> <label>Rate Per Day</label> <input type="number" name="rate_per_day" id="rate_per_day" class="input w-full border mt-2 flex-1 @error('rate_per_day') border-theme-6 @enderror" value="{{old('rate_per_day')}}" placeholder="Input Rate Per Day">
+                @error('rate_per_day')
+                    <div class="text-theme-6 mt-2">{{$message}}</div>
+                @enderror
+                </div>
+                
                 <div class="col-span-12 sm:col-span-4"> <label>Upload Photo</label> <input type="file" name="image" class="input w-full border mt-2 flex-1"> </div>
             </div>
             <div class="px-5 py-3 text-right border-t border-gray-200 dark:border-dark-5">
@@ -132,26 +227,30 @@
             <div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
                 <input type="hidden" name="id" id="id" />
                 <div class="col-span-12 sm:col-span-12 text-center" style="display:none;" id="edit_err"><div class="rounded-md flex items-center px-5 py-4 mb-2 bg-theme-12 text-white"> <i data-feather="alert-circle" class="w-6 h-6 mr-2"></i> All fields must be filled out! <i data-feather="x" onclick="return closeEditAlert();" class="w-4 h-4 ml-auto"></i> </div></div>
-                <div class="col-span-12 sm:col-span-4"> <label>First Name</label> <input type="text" name="fname" id="fname" class="input w-full border mt-2 flex-1" placeholder="Input First Name"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>Middle Name</label> <input type="text" name="mname" id="mname" class="input w-full border mt-2 flex-1" placeholder="Input Middle Name"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>Lastname</label> <input type="text" name="lname" id="lname" class="input w-full border mt-2 flex-1" placeholder="Input Last Name"> </div>
+                <div class="col-span-12 sm:col-span-4"> <label>First Name</label> <input type="text" onkeydown="return /[a-z, ]/i.test(event.key)"  name="fname" id="fname" class="input w-full border mt-2 flex-1 @error('fname') border-theme-6 @enderror" value="{{old('fname')}}" placeholder="Input First Name"> </div>
+                <div class="col-span-12 sm:col-span-4"> <label>Middle Name</label> <input type="text" onkeydown="return /[a-z, ]/i.test(event.key)" name="mname" id="mname" class="input w-full border mt-2 flex-1 @error('mname') border-theme-6 @enderror" value="{{old('mname')}}" placeholder="Input Middle Name"> </div>
+                <div class="col-span-12 sm:col-span-4"> <label>Lastname</label> <input type="text" onkeydown="return /[a-z, ]/i.test(event.key)" name="lname" id="lname" class="input w-full border mt-2 flex-1 @error('lname') border-theme-6 @enderror" value="{{old('lname')}}" placeholder="Input Last Name"> </div>
                 <div class="col-span-12 sm:col-span-4"> <label>Gender</label> <select  name="gender" id="gender" class="input w-full border mt-2 flex-1">
-                        <option>--Select--</option>
+                        <option value="">--Select--</option>
                         <option>Male</option>
                         <option>Female</option>
                     </select> </div>
-                <div class="col-span-12 sm:col-span-8"> <label>Address</label> <input type="text" name="address" id="address" class="input w-full border mt-2 flex-1" placeholder="Input Address"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>Date of Birth</label> <input type="date" name="birthdate" id="birthdate" class="input w-full border mt-2 flex-1" placeholder="Input Date of Birth"> </div>
-                <div class="col-span-12 sm:col-span-8"> <label>Contact No.</label> <input type="text" name="contact" id="contact" class="input w-full border mt-2 flex-1" placeholder="Input Contact Number"> </div>
+                <div class="col-span-12 sm:col-span-8"> <label>Address</label> <input type="text" name="address" id="address" class="input w-full border mt-2 flex-1 @error('address') border-theme-6 @enderror" value="{{old('address')}}" placeholder="Input Address"> </div>
+                <div class="col-span-12 sm:col-span-4"> <label>Date of Birth</label> <input type="date" name="birthdate" id="birthdate" class="input w-full border mt-2 flex-1 @error('birthdate') border-theme-6 @enderror" value="{{old('birthdate')}}" placeholder="Input Date of Birth"> </div>
+                <div class="col-span-12 sm:col-span-8"> <label>Contact No.</label> <input type="text" minlength="11" maxlength="11" name="contact" id="contact" class="input w-full border mt-2 flex-1 @error('contact') border-theme-6 @enderror" value="{{old('contact')}}" placeholder="Input Contact Number">
+                    @error('contact')
+                        <div class="text-theme-6 mt-2">{{$message}}</div>
+                    @enderror
+                </div>
                 <div class="col-span-12 sm:col-span-3"> <label>Time-In AM</label> <input type="time" name="time_in_am" id="time_in_am" class="input w-full border mt-2 flex-1"> </div>
                 <div class="col-span-12 sm:col-span-3"> <label>Time-Out AM</label> <input type="time" name="time_out_am" id="time_out_am" class="input w-full border mt-2 flex-1"> </div>
                 <div class="col-span-12 sm:col-span-3"> <label>Time-In PM</label> <input type="time" name="time_in_pm" id="time_in_pm" class="input w-full border mt-2 flex-1"> </div>
                 <div class="col-span-12 sm:col-span-3"> <label>Time-Out PM</label> <input type="time" name="time_out_pm" id="time_out_pm" class="input w-full border mt-2 flex-1"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>SSS</label> <input type="number" name="sss" id="sss" class="input w-full border mt-2 flex-1" placeholder="Input SSS Amount"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>PhilHealth</label> <input type="number" name="philhealth" id="philhealth" class="input w-full border mt-2 flex-1" placeholder="Input PhilHealth Amount"> </div>
-                <div class="col-span-12 sm:col-span-4"> <label>Pag-IBIG</label> <input type="number" name="pagibig" id="pagibig" class="input w-full border mt-2 flex-1" placeholder="Input Pag-IBIG Amount"> </div>
+                <div class="col-span-12 sm:col-span-4"> <label>SSS</label> <input type="number" name="sss" id="sss" class="input w-full border mt-2 flex-1 @error('sss') border-theme-6 @enderror" value="{{old('sss')}}" placeholder="Input SSS Amount"> </div>
+                <div class="col-span-12 sm:col-span-4"> <label>PhilHealth</label> <input type="number" name="philhealth" id="philhealth" class="input w-full border mt-2 flex-1 @error('philhealth') border-theme-6 @enderror" value="{{old('philhealth')}}" placeholder="Input PhilHealth Amount"> </div>
+                <div class="col-span-12 sm:col-span-4"> <label>Pag-IBIG</label> <input type="number" name="pagibig" id="pagibig" class="input w-full border mt-2 flex-1 @error('pagibig') border-theme-6 @enderror" value="{{old('pagibig')}}" placeholder="Input Pag-IBIG Amount"> </div>
                 <div class="col-span-12 sm:col-span-4"> <label>Position</label> <select  name="position" id="position" class="input w-full border mt-2 flex-1">
-                        <option>--Select--</option>
+                        <option value="">--Select--</option>
                         <option>Water Sewerage Maintenance Man B (6/2)</option>
                         <option>Administrative Services Aide (4/1)</option>
                         <option>Administration Services Asst.B (10/2)</option>
@@ -167,8 +266,17 @@
                         <option>Water Resources Facilities Tender B (4/1)</option>
                         <option>Clerk Processor B (6/1)</option>
                         <option>Water/Sewerage Maintenance Man C (4/2)</option>
+                        <option>Utilities/Customers Services Assistant D (6/2)</option>
+                        <option>Water/Sewerage Maintenance Man C (4/2)</option>
+                        <option>Utilities/Customers Services Assistant C (8/2)</option>
+                        <option>Administrative Services Aide (4/1)</option>
+                        <option>Senior Corporate Accountant B (17/1)</option>
+                        <option>Water/Sewerage Maintenance Man C (4/1)</option>
+                        <option>Engineering Assistant A (10/1)</option>
+                        <option>Water/Sewerage Maintenance Man A (8/3)</option>
+                        <option>Utilities/Customers Services Assistant D (6/2)</option>
                     </select></div>
-                <div class="col-span-12 sm:col-span-4"> <label>Rate Per Day</label> <input type="number" name="rate_per_day" id="rate_per_day" class="input w-full border mt-2 flex-1" placeholder="Input Rate Per Day"> </div>
+                <div class="col-span-12 sm:col-span-4"> <label>Rate Per Day</label> <input type="number" name="rate_per_day" id="rate_per_day" class="input w-full border mt-2 flex-1 @error('rate_per_day') border-theme-6 @enderror" value="{{old('rate_per_day')}}" placeholder="Input Rate Per Day"> </div>
             </div>
             <div class="px-5 py-3 text-right border-t border-gray-200 dark:border-dark-5">
                 <button type="button" data-dismiss="modal" class="button w-20 border text-gray-700 dark:border-dark-5 dark:text-gray-300 mr-1">Cancel</button>

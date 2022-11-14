@@ -149,8 +149,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'contact' => [
+            'regex' => 'The :attribute format is not valid! Please input valid :attribute number!',
         ],
     ],
 
