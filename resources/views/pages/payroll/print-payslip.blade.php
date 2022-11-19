@@ -86,7 +86,7 @@ Payroll
 <table class="table">
     <thead>
         <tr>
-            <th class="text-xs border border-b-2 dark:border-dark-5 whitespace-no-wrap">Earnings {{$employees->time_out_pm}}</th>
+            <th class="text-xs border border-b-2 dark:border-dark-5 whitespace-no-wrap">Earnings</th>
             <th class="text-xs border border-b-2 dark:border-dark-5 whitespace-no-wrap">Amount</th>
             <th class="text-xs border border-b-2 dark:border-dark-5 whitespace-no-wrap">Deductions</th>
             <th class="text-xs border border-b-2 dark:border-dark-5 whitespace-no-wrap">Amount</th>
