@@ -62,6 +62,8 @@ Payroll
     // }
     $total_hr  = $int_am + $int_pm;
     $rate_per_hour = $employees->rate_per_day / $total_hr;
+    //Worked Pay
+    $worked_pay = $employees->rate_per_day * $ct_attend_days;
     //Gross
     $gross_inc = $employees->rate_per_day * $ct_attend_days + $overtime_amount;
     //Deduction
@@ -94,20 +96,20 @@ Payroll
     </thead>
     <tbody>
         <tr>
-            <td class="text-xs border">Basic Pay Per Day</td>
-            <td class="text-xs border text-right">{{$employees->rate_per_day}}</td>
+            <td class="text-xs border">Worked Pay</td>
+            <td class="text-xs border text-right">{{$worked_pay}}</td>
             <td class="text-xs border">SSS</td>
             <td class="text-xs border text-right">{{$employees->sss}}</td>
         </tr>
         <tr>
-            <td class="text-xs border">Worked Days</td>
-            <td class="text-xs border text-right">{{$ct_attend_days}}</td>
+            <td class="text-xs border">Overtime</td>
+            <td class="text-xs border text-right">{{$overtime_amount}}</td>
             <td class="text-xs border">Philhealth</td>
             <td class="text-xs border text-right">{{$employees->philhealth}}</td>
         </tr>
         <tr>
-            <td class="text-xs border">Overtime</td>
-            <td class="text-xs border text-right">{{$overtime_amount}}</td>
+            <td class="text-xs border"></td>
+            <td class="text-xs border text-right"></td>
             <td class="text-xs border">Pag-Ibig</td>
             <td class="text-xs border text-right">{{$employees->pagibig}}</td>
         </tr>
